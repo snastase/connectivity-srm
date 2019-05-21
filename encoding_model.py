@@ -7,16 +7,15 @@ from scipy.stats import pearsonr, zscore
 import matplotlib.pyplot as plt
 from utils import array_correlation, read_gifti, write_gifti
 
-story_name = 'black'
-n_TRs = 534
+# Load dictionary of input filenames
+with open('input_fns.json') as f:
+    input_fns = json.load(f)
+
+# Number of vertices per hemisphere for fsaverage6
 n_vertices = 40962
 
-data_fns = ['data/sub-02_task-black.fsaverage6.lh.tproject.gii',
-            'data/sub-10_task-black.fsaverage6.lh.tproject.gii',
-            'data/sub-15_task-black.fsaverage6.lh.tproject.gii']
-data_fn = data_fns[-1]
-
-embedding = np.load(f'transcripts/{story_name}_word2vec_embeddings.npy')
+# Load mask in fsaverage6 space
+mask = np.load('data/cortical_mask_lh.npy')
 
 
 # Function for delaying embedding by several TRs
@@ -44,21 +43,56 @@ def delay_embedding(embedding, delays=[2, 3, 4, 5],
 model = delay_embedding(embedding)
 
 
+### differentiate model_trims and data_trims
+
 # Load surface data and trim
-def load_data(data_fn, trims=None):
-
-    surf_data = read_gifti(data_fn)
-
-    surf_data = surf_data[trims[0]:-trims[1]]
-
-    # Get medial wall vertices
-    medial_wall = np.all(surf_data == 0, axis=0)
-    cortical_mask = np.where(~medial_wall)[0]
-    data = surf_data[:, ~medial_wall]
+def load_inputs(input_fns, stories=None, mask=None):
     
-    return data, cortical_mask
+    if not stories:
+        stories = input_fns.keys()
+    
+    inputs = {}
+    for story in stories:
+        inputs[story] = {}
+        
+        # Load, trim, and delay embedding
+        embedding = np.load(input_fns[story]['model'])
+        model_trims = input_fns[story]['model_trims']
+        embedding = embedding[model_trims[0]:(-model_trims[1] or None), :]
+        model = delay_embedding(embedding)
+        inputs[story]['model'] = model
+        print(f'Loaded model for story "{story}"')
+        
+        # Get data for all subejcts
+        inputs[story]['data'] = {}
+        subjects = input_fns[story]['data'].keys()
+        n_subjects = 0
+        for subject in subjects:
+            data_fn = input_fns[story]['data'][subject]
+            surf_data = read_gifti(data_fn)
+            
+            # Trim data
+            data_trims = input_fns[story]['data_trims']
+            surf_data = surf_data[data_trims[0]:(-data_trims[1] or None), :]
+            
+            # Check that model and data have matching length
+            if not model.shape[0] == surf_data.shape[0]:
+                raise ValueError(f"Model shape ({model.shape}) does not "
+                                 f"match data shape ({data.shape})")
+            
+            # Optionally apply mask
+            if isinstance(mask, np.ndarray):
+                surf_data = surf_data[:, cortical_mask]
+            
+            inputs[story]['data'][subject] = surf_data
+            
+            n_subjects +=1
+    
+        print(f'Loaded data for {n_subjects} subjects for story "{story}"')        
 
-data, mask = load_data(data_fn, trims=[8, 8])
+    return inputs
+
+inputs = load_inputs(input_fns, stories=['black'], mask=mask)
 
 
 # Split into train and test
