@@ -3,7 +3,7 @@ from copy import deepcopy
 import gensim
 from nltk.corpus import stopwords
 
-story_name = 'black'
+story_name = 'forgot'
 
 # Load dictionary of input filenames
 with open('metadata.json') as f:
@@ -46,7 +46,7 @@ for word, onset, offset in lines:
     transcript.append([onset, offset, word])
 
 # Save this standardized transcript for sharing
-with open(f'{story_name}_words.tsv', 'w') as f:
+with open(f'transcripts/{story_name}_words.tsv', 'w') as f:
     for line in transcript:
         f.write('\t'.join([str(item) for item in line]) + '\n')
 

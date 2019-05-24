@@ -1,8 +1,8 @@
 import json
 
 metadata = {'black':
-             {'stimulus_duration': 837,
-              'n_TRs': 574,
+             {'stimulus_duration': 800,
+              'n_TRs': 550,
               'timestamps': 'transcripts/black_timestamps.txt',
               'model': 'transcripts/black_word2vec.npy',
               'model_trims': [0, 0],
@@ -13,8 +13,8 @@ metadata = {'black':
                   'data/sub-15_task-black.fsaverage6.lh.tproject.gii'},
               'data_trims': [8, 8]},
             'forgot':
-              {'stimulus_duration': 800,
-               'n_TRs': 550,
+              {'stimulus_duration': 837,
+               'n_TRs': 574,
                'timestamps': 'transcripts/forgot_timestamps.txt',
                'model': 'transcripts/forgot_word2vec.npy',
                'model_trims': [0, 0],
