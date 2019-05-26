@@ -39,11 +39,10 @@ with open(input_fn) as f:
 # Reorganize the transcript and exclude some words
 transcript = []
 for word, onset, offset in lines:
-    if word in exclude:
-        continue
-    onset, offset = (np.round(float(onset) / hz, decimals=3),
-                     np.round(float(offset) / hz, decimals=3))
-    transcript.append([onset, offset, word])
+    if word not in exclude:
+        onset, offset = (np.round(float(onset) / hz, decimals=3),
+                         np.round(float(offset) / hz, decimals=3))
+        transcript.append([onset, offset, word])
 
 # Save this standardized transcript for sharing
 with open(f'transcripts/{story_name}_words.tsv', 'w') as f:
