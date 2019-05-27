@@ -5,7 +5,8 @@ from sklearn.metrics import make_scorer
 from sklearn.model_selection import GridSearchCV, KFold
 from scipy.stats import rankdata, zscore
 from scipy.spatial.distance import cdist
-from utils import array_correlation, read_gifti, write_gifti
+from gifti_io import read_gifti, write_gifti
+from brainiak.utils.utils import array_correlation
 
 # Load dictionary of input filenames
 with open('metadata.json') as f:
@@ -16,14 +17,14 @@ n_vertices = 40962
 model_ndim = 300
 delays = [2, 3, 4, 5]
 
-rois = ['EAC', 'AAC', 'TPOJ', 'PCC']
-roi = 'PCC'
+rois = ['EAC', 'AAC', 'TPOJ', 'PCC', 'cortex']
+roi = 'AAC'
 hemi = 'lh'
 
 stories = ['black', 'forgot']
 exclude = [7, 11, 12, 13, 26, 27]
 subject_list = [f'sub-{i+1:02}' for i in range(48)
-            if i not in exclude]
+                if i not in exclude]
 subject_list = ['sub-01', 'sub-02', 'sub-10', 'sub-15']
 subjects = {story: subject_list for story in stories}
 
@@ -31,147 +32,28 @@ subjects = {story: subject_list for story in stories}
 mask = np.load(f'data/{roi}_mask_{hemi}.npy').astype(bool)
 
 
-# Function for delaying embedding by several TRs
-def delay_embedding(embedding, delays=[2, 3, 4, 5],
-                    zscore_features=False):
-    
-    # Horizontally stack semantic vectors at varying delays
-    delayed = []
-    for delay in delays:
-        delayed.append(np.vstack((np.full((delay,
-                                           embedding.shape[1]),
-                                          np.nan),
-                                  embedding[:-delay])))
-    delayed = np.hstack(delayed)
-    
-    # Zero out any NaNs in delayed embedding
-    delayed[np.isnan(delayed)] = 0
-    
-    # Optionally z-score semantic features
-    if zscore_features:
-        delayed = zscore(delayed, axis=0)
-    
-    return delayed
+# Split models and load in data splits
+model_splits = split_models(metadata, stories=stories,
+                            subjects=subjects, delays=delays)
 
-
-# Load surface data and trim
-def load_inputs(metadata, subjects=None,
-                stories=None, hemi=None, mask=None):
-    
-    if not stories:
-        stories = metadata.keys()
-    
-    inputs = {}
-    for story in stories:
-
-        inputs[story] = {}
-        
-        # Load, trim, and delay embedding
-        embedding = np.load(metadata[story]['model'])
-        model_trims = metadata[story]['model_trims']
-        embedding = embedding[model_trims[0]:(-model_trims[1] or None), :]
-        model = delay_embedding(embedding)
-        inputs[story]['model'] = model
-        print(f'Loaded model for story "{story}"')
-        
-        # Get data for all or some subjects
-        inputs[story]['data'] = {}
-        
-        if not subjects:
-            subject_list = metadata[story]['data'].keys()
-        else:
-            subject_list = subjects[story]
-
-        n_subjects = 0
-        for subject in subject_list:
-            
-            data_fn = metadata[story]['data'][subject][hemi]
-            surf_data = read_gifti(data_fn)
-
-            # Trim data
-            data_trims = metadata[story]['data_trims']
-            surf_data = surf_data[data_trims[0]:(
-                -data_trims[1] or None), :]
-
-            # Check that model and data have matching length
-            if not model.shape[0] == surf_data.shape[0]:
-                raise ValueError(f"Model shape {model.shape} does not "
-                                 f"match data shape {surf_data.shape} "
-                                 f'for story "{story}"')
-
-            # Optionally apply mask
-            if isinstance(mask, np.ndarray):
-                surf_data = surf_data[:, mask]
-
-            inputs[story]['data'][subject] = surf_data
-            
-            n_subjects +=1
-    
-        print(f'Loaded data for {n_subjects} subjects for story "{story}"')
-
-    return inputs
-
-inputs = load_inputs(metadata, subjects=subjects,
-                     stories=stories, hemi=hemi, mask=mask)
-
-
-# Split into train and test
-def story_split(inputs, zscore_data=True, zscore_model=False):
-    
-    model_splits, data_splits = {}, {}
-    for story in inputs:
-        
-        # Get model for story and split / process
-        model = inputs[story]['model']
-        
-        midpoint = model.shape[0] // 2
-
-        first_model = model[:midpoint]
-        second_model = model[midpoint:]
-
-        if zscore_model:
-            first_model = zscore(first_model, axis=0)
-            second_model = zscore(second_model, axis=0)
-            
-        model_splits[story] = [(first_model, second_model),
-                               (second_model, first_model)]
-        
-        # Get fMRI data per story and subject
-        data_splits[story] = {}
-        for subject in inputs[story]['data']:
-            
-            data = inputs[story]['data'][subject]
-            
-            assert data.shape[0] == model.shape[0]
-
-            first_data = data[:midpoint]
-            second_data = data[midpoint:]
-
-            if zscore_data:
-                first_data = zscore(first_data, axis=0)
-                second_data = zscore(second_data, axis=0)
-
-            data_splits[story][subject] = [(first_data, second_data),
-                                           (second_data, first_data)]
-
-    return model_splits, data_splits
-
-
-model_splits, data_splits = story_split(inputs)
+data_splits = load_split_data(metadata, stories=stories,
+                              subjects=subjects, hemi='lh',
+                              mask=mask)
 
 
 # Function for selecting and aggregating subjects
-def aggregate_subjects(data, subject_list, aggregation='average',
-                       cv_fold=0, train_test=0):
+def aggregate_subjects(data, subject_list, hemi='lh',
+                       aggregation='average', cv_fold=0,
+                       train_test=0):
     
     # Allow for easy single subject input
     if type(subject_list) == str:
         subject = subject_list
-        data = data[subject][cv_fold][train_test]
+        data = data[subject][hemi][cv_fold][train_test]
         
     else:
         if len(subject_list) == 1:
-            data = data[subject_list[0]][cv_fold][train_test]
+            data = data[subject_list[0]][hemi][cv_fold][train_test]
         else:
             n_subjects = len(subject_list)
             assert n_subjects > 1
@@ -183,7 +65,7 @@ def aggregate_subjects(data, subject_list, aggregation='average',
             # Compile test subjects
             data_list = []
             for subject in subject_list:
-                data_list.append(data[subject][cv_fold][train_test])
+                data_list.append(data[subject][hemi][cv_fold][train_test])
 
             # Average time data across subjects
             if aggregation == 'average' and n_subjects > 1:
@@ -196,14 +78,15 @@ def aggregate_subjects(data, subject_list, aggregation='average',
 
 train_story, test_story = 'forgot', 'forgot'
 train_subjects = ['sub-01', 'sub-02', 'sub-10']
+train_subjects = ['sub-15']
 test_subjects = ['sub-15']
 cv_fold = 0
-aggregation = 'average'
+aggregation = 'concatenate'
 
 if aggregation == 'average':
     train_model = model_splits[train_story][cv_fold][0]
     test_model = model_splits[test_story][cv_fold][1]
-elif aggregation == 'concatenation':
+elif aggregation == 'concatenate':
     train_model = np.tile(model_splits[train_story][cv_fold][0],
                           (len(train_subjects), 1))
     test_model = np.tile(model_splits[test_story][cv_fold][1],
@@ -225,7 +108,7 @@ correlation_scorer = make_scorer(array_correlation)
 
 
 # Declare ridge regression model
-alpha = 10.
+alpha = 100.
 ridge = Ridge(alpha=alpha, fit_intercept=True, normalize=False,
               copy_X=True, tol=0.001, solver='auto')
 
@@ -278,14 +161,17 @@ accuracy = rank_accuracy(predicted_model, collapse_test_model)
 print(np.mean(performance), np.amax(performance))
 print(accuracy)
 
+sns.distplot(mean_r, hist=False, kde_kws={"shade": True})
+sns.distplot(performance, hist=False, kde_kws={"shade": True})
+
 
 # Fill results back in cortical mask and write GIfTI
-results = np.zeros(n_vertices)
-results[mask] = performance
+result_map = np.zeros(n_vertices)
+result_map[mask] = performance
 
 template_fn = metadata['black']['data']['sub-02']
 
-write_gifti(results, 'black_performance_test-xs_lh.gii', template_fn)
+write_gifti(result_map, 'black_performance_test-xs_lh.gii', template_fn)
 
 
 # Function to run grid search over alphas across voxels
