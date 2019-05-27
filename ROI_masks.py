@@ -25,7 +25,7 @@ for roi in rois:
     
     masks[roi] = mask.astype(bool)
     n_voxels = np.sum(mask)
-    np.save(f'data/{roi}_mask_lh.npy', mask)
+    np.save(f'data/{roi}_mask_{hemi}.npy', mask)
     print(f"Created {hemi} {roi} mask containing "
           f"{n_voxels} voxels")
     
