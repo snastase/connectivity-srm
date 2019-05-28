@@ -29,8 +29,10 @@ subject_list = [f'sub-{i+1:02}' for i in range(48)
 subject_list = ['sub-01', 'sub-02', 'sub-10', 'sub-15']
 subjects = {story: subject_list for story in stories}
 
-# Load mask in fsaverage6 space
-mask = {hemi: np.load(f'data/{roi}_mask_{hemi}.npy').astype(bool)}
+# Load masks for both hemispheres
+mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
+mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
+mask = {'lh': mask_lh, 'rh': mask_rh}
 
 
 # Function for selecting and aggregating subjects
