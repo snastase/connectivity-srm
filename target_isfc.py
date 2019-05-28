@@ -1,9 +1,9 @@
 import json
 import numpy as np
-from os.path import join
-from split_stories import load_split_data
-from gifti_io import read_gifti, write_gifti
+from scipy.stats import zscore
 from brainiak.isc import isfc
+from split_stories import load_split_data
+from gifti_io import read_gifti
 
 # Load dictionary of input filenames
 with open('metadata.json') as f:
@@ -13,6 +13,13 @@ stories = ['black', 'forgot']
 subject_list = ['sub-01', 'sub-02', 'sub-10', 'sub-15']
 subjects = {story: subject_list for story in stories}
 half = 1
+hemi = 'lh'
+roi = 'AAC'
+
+# Load in ROI masks for both hemispheres
+mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
+mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
+mask = {'lh': mask_lh, 'rh': mask_rh}
 
 # Load the surface parcellation
 n_parcels = 360
@@ -24,11 +31,6 @@ parcel_labels = parcel_labels[~np.logical_or(parcel_labels == 0,
                                              parcel_labels == 1000)]
 assert len(parcel_labels) == n_parcels
 
-
-# Load in first-half training surface data
-train_data = load_split_data(metadata, stories=stories,
-                             subjects=subjects,
-                             half=half)
 
 # Compute means for all parcels
 def parcel_means(data, atlas, parcel_labels=None,
@@ -77,9 +79,10 @@ def parcel_means(data, atlas, parcel_labels=None,
     
     return parcels
 
+
 # Compute ISFC between ROI voxels and parcel means
 def target_isfc(data, targets, stories=None, subjects=None,
-                hemi='lh'):
+                hemi='lh', zscore_isfcs=True):
     
     # By default grab all stories
     if not stories:
@@ -105,6 +108,10 @@ def target_isfc(data, targets, stories=None, subjects=None,
         # Compute ISFCs between ROI and targets
         isfcs = isfc(data_stack, targets=target_stack)
         
+        # Optionally z-score across targets
+        if zscore_isfcs:
+            isfcs = zscore(np.nan_to_num(isfcs), axis=2)
+        
         for s, subject in enumerate(subject_list):
             target_isfcs[story][subject] = {}
             target_isfcs[story][subject][hemi] = isfcs[s]
@@ -114,17 +121,14 @@ def target_isfc(data, targets, stories=None, subjects=None,
     return target_isfcs
 
 
+# Load in first-half training surface data
+train_data = load_split_data(metadata, stories=stories,
+                             subjects=subjects,
+                             half=half)
+
 # Compute targets
 targets = parcel_means(train_data, atlas, parcel_labels=parcel_labels,
                        stories=stories, subjects=subjects, hemi=hemi)
-
-roi = 'AAC'
-hemi = 'lh'
-    
-# Load in ROI masks for both hemispheres
-mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
-mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
-mask = {'lh': mask_lh, 'rh': mask_rh}
 
 # Re-load in first-half training surface data with ROI mask
 train_data = load_split_data(metadata, stories=stories,
