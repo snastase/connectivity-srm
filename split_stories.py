@@ -24,12 +24,14 @@ def delay_model(model, delays=[2, 3, 4, 5]):
 
 
 # Split models into train and test halves
-def split_models(metadata, stories=None, subjects=None, 
+def split_models(metadata, stories=None, subjects=None, half=1,
                  delays=[2, 3, 4, 5], zscore_model=False):
     
     # By default grab all stories in metadata
     if not stories:
         stories = metadata.keys()
+        
+    assert half in [1, 2]
     
     model_splits = {}
     for story in stories:
@@ -44,22 +46,21 @@ def split_models(metadata, stories=None, subjects=None,
         # Find the midpoint of model and split
         midpoint = model.shape[0] // 2
 
-        half1_model = model[:midpoint]
-        half2_model = model[midpoint:]
+        if half == 1:
+            half_model = model[:midpoint]
+        elif half == 2:
+            half_model = model[midpoint:]
 
         # Optionally z-score model features
         if zscore_model:
-            half1_model = zscore(half1_model, axis=0)
-            hafl2_model = zscore(half2_model, axis=0)
+            half_model = zscore(half_model, axis=0)
 
         # Horizontally stack delayed replicates of model
-        half1_model = delay_model(half1_model, delays=delays)
-        half2_model = delay_model(half2_model, delays=delays)
+        half_model = delay_model(half_model, delays=delays)
             
-        model_splits[story] = [(half1_model, half2_model),
-                               (half2_model, half1_model)]
+        model_splits[story] = half_model
         
-        print(f"Loaded split-half model for story '{story}'")
+        print(f"Loaded model for story '{story}' half {half}")
 
     return model_splits
 
@@ -125,8 +126,8 @@ def split_data(metadata, stories=None, subjects=None, hemi=None,
 
 
 # Load preexisting split data
-def load_split_data(metadata, stories=None, subjects=None, hemi=None,
-                    mask=None, prefix=None):
+def load_split_data(metadata, stories=None, subjects=None,
+                    hemi=None, mask=None, half=1, prefix=None):
     
     # By default grab all stories in metadata
     if not stories:
@@ -137,6 +138,9 @@ def load_split_data(metadata, stories=None, subjects=None, hemi=None,
         hemis = ['lh', 'rh']
     else:
         hemis = [hemi]
+        
+    # Check half assignment
+    assert half in [1, 2]
     
     # Loop through stories
     data_splits = {}
@@ -157,33 +161,25 @@ def load_split_data(metadata, stories=None, subjects=None, hemi=None,
             
             # One or both hemispheres                
             for hemi in hemis:
-                
-                # Set up filenames
+
                 if prefix:
-                    half1_fn = (f'data/{subject}_task-{story}_'
-                                f'half-1_{prefix}_{hemi}.npy')
-                    half2_fn = (f'data/{subject}_task-{story}_'
-                               f'half-2_{prefix}_{hemi}.npy')
+                    half_fn = (f'data/{subject}_task-{story}_'
+                               f'half-{half}_{prefix}_{hemi}.npy')
                 else:
-                    half1_fn = (f'data/{subject}_task-{story}_'
-                                f'half-1_{hemi}.npy')
-                    half2_fn = (f'data/{subject}_task-{story}_'
-                               f'half-2_{hemi}.npy')
-                
-                assert exists(half1_fn) and exists(half2_fn)
-                
-                # If they exist, just load them
-                half1_data = np.load(half1_fn)
-                half2_data = np.load(half2_fn)
+                    half_fn = (f'data/{subject}_task-{story}_'
+                               f'half-{half}_{hemi}.npy')
+
+                assert exists(half_fn)
+
+                # Load files
+                half_data = np.load(half_fn)
 
                 if isinstance(mask, np.ndarray):
-                    half1_data = half1_data[:, mask]
-                    half2_data = half2_data[:, mask]
+                    half_data = half_data[:, mask]
 
-                data_splits[story][subject][hemi] = [
-                    (half1_data, half2_data), (half2_data, half1_data)]
+                data_splits[story][subject][hemi] = half_data
                 
-            print(f"Loaded split-half data for subject '{subject}' "
-                  f"and story '{story}'")
+            print(f"Loaded subject '{subject}' data "
+                  f"for story '{story}' half {half}")
             
     return data_splits

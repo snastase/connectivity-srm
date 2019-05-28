@@ -32,28 +32,22 @@ subjects = {story: subject_list for story in stories}
 mask = np.load(f'data/{roi}_mask_{hemi}.npy').astype(bool)
 
 
-# Split models and load in data splits
-model_splits = split_models(metadata, stories=stories,
-                            subjects=subjects, delays=delays)
-
-data_splits = load_split_data(metadata, stories=stories,
-                              subjects=subjects, hemi='lh',
-                              mask=mask)
-
-
 # Function for selecting and aggregating subjects
-def aggregate_subjects(data, subject_list, hemi='lh',
-                       aggregation='average', cv_fold=0,
-                       train_test=0):
+def aggregate_subjects(data, model, subject_list,
+                       hemi='lh',  aggregation='average'):
+    
+    # Broadcast model if concatenating subjects
+    if aggregation == 'concatenate':
+        model = np.tile(model, (len(subject_list), 1))
     
     # Allow for easy single subject input
     if type(subject_list) == str:
         subject = subject_list
-        data = data[subject][hemi][cv_fold][train_test]
+        data = data[subject][hemi]
         
     else:
         if len(subject_list) == 1:
-            data = data[subject_list[0]][hemi][cv_fold][train_test]
+            data = data[subject_list[0]][hemi]
         else:
             n_subjects = len(subject_list)
             assert n_subjects > 1
@@ -65,7 +59,7 @@ def aggregate_subjects(data, subject_list, hemi='lh',
             # Compile test subjects
             data_list = []
             for subject in subject_list:
-                data_list.append(data[subject][hemi][cv_fold][train_test])
+                data_list.append(data[subject][hemi])
 
             # Average time data across subjects
             if aggregation == 'average' and n_subjects > 1:
@@ -73,35 +67,47 @@ def aggregate_subjects(data, subject_list, hemi='lh',
 
             elif aggregation == 'concatenate' and n_subjects > 1:
                 data = np.vstack(data_list)
+                
+    if len(model) != len(data):
+        raise ValueError("Model and data have mismatching shape! "
+                         f"model: {model.shape}, data: {data.shape}")
     
-    return data
+    return data, model
 
 train_story, test_story = 'forgot', 'forgot'
 train_subjects = ['sub-01', 'sub-02', 'sub-10']
 train_subjects = ['sub-15']
 test_subjects = ['sub-15']
-cv_fold = 0
+hemi = 'lh'
 aggregation = 'concatenate'
 
-if aggregation == 'average':
-    train_model = model_splits[train_story][cv_fold][0]
-    test_model = model_splits[test_story][cv_fold][1]
-elif aggregation == 'concatenate':
-    train_model = np.tile(model_splits[train_story][cv_fold][0],
-                          (len(train_subjects), 1))
-    test_model = np.tile(model_splits[test_story][cv_fold][1],
-                         (len(test_subjects), 1))
+# Split models and load in data splits
+train_model = split_models(metadata, stories=stories,
+                           subjects=subjects, half=1,
+                           delays=delays)
+test_model = split_models(metadata, stories=stories,
+                          subjects=subjects, half=2,
+                          delays=delays)
+    
+# Load in split data for train and test
+train_data = load_split_data(metadata, stories=stories,
+                             subjects=subjects, hemi=hemi,
+                             mask=mask, half=1)
+test_data = load_split_data(metadata, stories=stories,
+                            subjects=subjects, hemi=hemi,
+                            mask=mask, half=2)
 
-train_data = aggregate_subjects(data_splits[train_story],
-                                train_subjects,
-                                aggregation=aggregation,
-                                cv_fold=cv_fold,
-                                train_test=0)
-                                
-test_data = aggregate_subjects(data_splits[test_story],
-                               test_subjects,
-                               cv_fold=cv_fold,
-                               train_test=1)
+# Aggregate data and model across subjects
+train_data, train_model = aggregate_subjects(train_data[train_story],
+                                             train_model[train_story],
+                                             train_subjects,
+                                             hemi=hemi,
+                                             aggregation=aggregation)
+test_data, test_model = aggregate_subjects(test_data[test_story],
+                                           test_model[test_story],
+                                           test_subjects,
+                                           hemi=hemi,
+                                           aggregation=aggregation)
 
 # Make custom correlation scorer
 correlation_scorer = make_scorer(array_correlation)
