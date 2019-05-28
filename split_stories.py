@@ -139,6 +139,12 @@ def load_split_data(metadata, stories=None, subjects=None,
     else:
         hemis = [hemi]
         
+    # By default grab both hemispheres
+    if not hemi:
+        hemis = ['lh', 'rh']
+    else:
+        hemis = [hemi]
+        
     # Check half assignment
     assert half in [1, 2]
     
@@ -174,8 +180,8 @@ def load_split_data(metadata, stories=None, subjects=None,
                 # Load files
                 half_data = np.load(half_fn)
 
-                if isinstance(mask, np.ndarray):
-                    half_data = half_data[:, mask]
+                if mask:
+                    half_data = half_data[:, mask[hemi]]
 
                 data_splits[story][subject][hemi] = half_data
                 

@@ -6,6 +6,7 @@ from sklearn.model_selection import GridSearchCV, KFold
 from scipy.stats import rankdata, zscore
 from scipy.spatial.distance import cdist
 from gifti_io import read_gifti, write_gifti
+from split_stories import split_models, load_split_data
 from brainiak.utils.utils import array_correlation
 
 # Load dictionary of input filenames
@@ -29,7 +30,7 @@ subject_list = ['sub-01', 'sub-02', 'sub-10', 'sub-15']
 subjects = {story: subject_list for story in stories}
 
 # Load mask in fsaverage6 space
-mask = np.load(f'data/{roi}_mask_{hemi}.npy').astype(bool)
+mask = {hemi: np.load(f'data/{roi}_mask_{hemi}.npy').astype(bool)}
 
 
 # Function for selecting and aggregating subjects
@@ -76,10 +77,9 @@ def aggregate_subjects(data, model, subject_list,
 
 train_story, test_story = 'forgot', 'forgot'
 train_subjects = ['sub-01', 'sub-02', 'sub-10']
-train_subjects = ['sub-15']
 test_subjects = ['sub-15']
 hemi = 'lh'
-aggregation = 'concatenate'
+aggregation = 'average'
 
 # Split models and load in data splits
 train_model = split_models(metadata, stories=stories,
