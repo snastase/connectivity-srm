@@ -6,10 +6,10 @@ from sklearn.model_selection import GridSearchCV, KFold
 from scipy.stats import rankdata, zscore
 from scipy.spatial.distance import cdist
 from gifti_io import read_gifti, write_gifti
-from split_stories import split_models, load_split_data
+from split_stories import check_keys, load_split_data, split_models
 from brainiak.utils.utils import array_correlation
 
-# Load dictionary of input filenames
+# Load dictionary of input filenames and parameters
 with open('metadata.json') as f:
     metadata = json.load(f)
 
@@ -18,21 +18,12 @@ n_vertices = 40962
 model_ndim = 300
 delays = [2, 3, 4, 5]
 
-rois = ['EAC', 'AAC', 'TPOJ', 'PCC', 'cortex']
-roi = 'AAC'
-hemi = 'lh'
-
 stories = ['black', 'forgot']
-exclude = [7, 11, 12, 13, 26, 27]
+exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
 subject_list = [f'sub-{i+1:02}' for i in range(48)
                 if i not in exclude]
-subject_list = ['sub-01', 'sub-02', 'sub-10', 'sub-15']
+#subject_list = ['sub-01', 'sub-02', 'sub-10', 'sub-15']
 subjects = {story: subject_list for story in stories}
-
-# Load masks for both hemispheres
-mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
-mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
-mask = {'lh': mask_lh, 'rh': mask_rh}
 
 
 # Function for selecting and aggregating subjects
@@ -78,10 +69,18 @@ def aggregate_subjects(data, model, subject_list,
     return data, model
 
 train_story, test_story = 'forgot', 'forgot'
-train_subjects = ['sub-01', 'sub-02', 'sub-10']
+train_subjects = ['sub-02', 'sub-10']
+train_subjects = [s for s in subject_list if s is not 'sub-15']
 test_subjects = ['sub-15']
-hemi = 'lh'
+hemisphere = 'lh'
 aggregation = 'average'
+
+# Load masks for both hemispheres
+rois = ['EAC', 'AAC', 'TPOJ', 'PCC', 'cortex']
+roi = 'TPOJ'
+mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
+mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
+mask = {'lh': mask_lh, 'rh': mask_rh}
 
 # Split models and load in data splits
 train_model = split_models(metadata, stories=stories,
@@ -93,12 +92,20 @@ test_model = split_models(metadata, stories=stories,
     
 # Load in split data for train and test
 train_data = load_split_data(metadata, stories=stories,
-                             subjects=subjects, hemi=hemi,
+                             subjects=subjects, hemisphere=hemisphere,
                              mask=mask, half=1)
 test_data = load_split_data(metadata, stories=stories,
-                            subjects=subjects, hemi=hemi,
+                            subjects=subjects, hemisphere=hemisphere,
                             mask=mask, half=2)
 
+# Load in split cSRM data for train and test
+train_data = load_split_data(metadata, stories=stories,
+                             subjects=subjects, hemisphere=hemisphere,
+                             half=1, prefix=f'{roi}_cSRM-train')
+test_data = load_split_data(metadata, stories=stories,
+                            subjects=subjects, hemisphere=hemisphere,
+                            half=2, prefix=f'{roi}_cSRM-test')
+    
 # Aggregate data and model across subjects
 train_data, train_model = aggregate_subjects(train_data[train_story],
                                              train_model[train_story],
@@ -168,6 +175,9 @@ accuracy = rank_accuracy(predicted_model, collapse_test_model)
 
 print(np.mean(performance), np.amax(performance))
 print(accuracy)
+
+
+###
 
 sns.distplot(mean_r, hist=False, kde_kws={"shade": True})
 sns.distplot(performance, hist=False, kde_kws={"shade": True})
