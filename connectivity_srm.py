@@ -1,6 +1,7 @@
 import json
 from time import time
 import numpy as np
+from scipy.stats import zscore
 from brainiak.funcalign.srm import SRM
 from gifti_io import read_gifti
 from split_stories import check_keys, load_split_data
@@ -78,7 +79,8 @@ def srm_fit(target_fcs, stories=None, subjects=None,
 
 # Apply learned SRM projections to data
 def srm_transform(data, transforms, half=1, stories=None,
-                  subjects=None, hemisphere=None, save_prefix=None):
+                  subjects=None, hemisphere=None,
+                  zscore_transformed=True, save_prefix=None):
     
     # By default grab all stories
     stories = check_keys(data, keys=stories)
@@ -102,6 +104,11 @@ def srm_transform(data, transforms, half=1, stories=None,
                 
                 transform = transforms[subject][hemi]
                 transformed = data[story][subject][hemi].dot(transform)
+                
+                # Optionally z-score transformed output data
+                if zscore_transformed:
+                    transformed = zscore(transformed, axis=0)
+                
                 data_transformed[story][subject][hemi] = transformed
                 
                 if save_prefix:
@@ -160,7 +167,7 @@ assert len(parcel_labels) == n_parcels
 # Subjects and stories
 stories = ['black', 'forgot']
 exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
-subject_list = [f'sub-{i+1:02}' for i in range(48)
+subject_list = [f'sub-{i:02}' for i in range(1, 49)
                 if i not in exclude]
 subjects = {story: subject_list for story in stories}
 
@@ -191,11 +198,11 @@ test_data = load_split_data(metadata, stories=stories,
                             mask=mask, half=2)
 
 # Apply connectivity SRM
-k = 360
-n_iter = 10
+k = 10
+n_iter = 100
 train_transformed, test_transformed = connectivity_srm(
                                         train_data, test_data, targets,
                                         train_half=1, test_half=2,
                                         stories=stories, subjects=subjects,
-                                        save_prefix=f'{roi}_cSRM',
+                                        save_prefix=f'{roi}_k-{k}_cSRM',
                                         k=k, n_iter=n_iter)
