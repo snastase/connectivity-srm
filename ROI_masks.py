@@ -1,8 +1,8 @@
 import json
 import numpy as np
-from utils import read_gifti, write_gifti
+from gifti_io import read_gifti, write_gifti
 
-hemi = 'lh'
+hemi = 'rh'
 
 # Load in HCP-MMP1 parcellation on fsaverage6
 mmp = read_gifti(f'data/MMP_fsaverage6.{hemi}.gii')[0]
@@ -22,6 +22,10 @@ for roi in rois:
     mask = np.zeros(mmp.shape)
     for area in rois[roi]:
         mask[mmp == rois[roi][area]] = 1
+        
+    write_gifti(mask,
+            f'data/MMP_{roi}_fsaverage6.{hemi}.gii',
+            f'data/MMP_fsaverage6.{hemi}.gii')
     
     masks[roi] = mask.astype(bool)
     n_voxels = np.sum(mask)
@@ -31,8 +35,8 @@ for roi in rois:
     
 # Create single parcellation map
 mask_map = np.zeros(mmp.shape)
-for mask_name in masks:
-    mask_map[masks[mask_name]] = roi_colors[mask_name]
+for i, mask_name in enumerate(masks):
+    mask_map[masks[mask_name]] = i + 1
     
 write_gifti(mask_map,
             f'data/MMP_ROIs_fsaverage6.{hemi}.gii',
