@@ -66,16 +66,17 @@ def split_models(metadata, stories=None, subjects=None, half=1,
 
 # Split into first and second half for train/test and save
 def split_data(metadata, stories=None, subjects=None,
-               hemisphere=None, zscore_data=True, save_files=True):
+               hemisphere=None, zscore_data=True,
+               mask=None, roi=None, save_files=True):
     
     # By default grab all stories in metadata
-    stories = check_keys(data, keys=stories)
+    stories = check_keys(metadata, keys=stories)
     
     # Loop through stories
     for story in stories:
                 
         # By default just grab all subjects in metadata
-        subject_list = check_keys(data[story]['data'],
+        subject_list = check_keys(metadata[story]['data'],
                                   keys=subjects, subkey=story)
             
         # Use data trims to find midpoint
@@ -85,17 +86,21 @@ def split_data(metadata, stories=None, subjects=None,
 
         # Loop through subjects and split data
         for subject in subject_list:
-                        
+            
             # By default grab both hemispheres
             hemis = check_keys(metadata[story]['data'][subject],
                                keys=hemisphere)
                 
-            # One or both hemispheres                
+            # One or both hemispheres 
             for hemi in hemis:
 
                 # Load in data from GIfTI
                 data_fn = metadata[story]['data'][subject][hemi]
                 surf_data = read_gifti(data_fn)
+                
+                # Optionally mask
+                if mask and roi:
+                    surf_data = surf_data[:, mask[hemi]]
 
                 # Trim data
                 assert surf_data.shape[0] == n_TRs
@@ -110,23 +115,29 @@ def split_data(metadata, stories=None, subjects=None,
                     half2_data = zscore(half2_data, axis=0)
 
                 if save_files:
-                    half1_fn = (f'data/{subject}_task-{story}_'
-                                f'half-1_{hemi}.npy')
-                    half2_fn = (f'data/{subject}_task-{story}_'
-                                f'half-2_{hemi}.npy')
+                    if mask and roi:
+                        half1_fn = (f'data/{subject}_task-{story}_'
+                                    f'half-1_{roi}_{hemi}.npy')
+                        half2_fn = (f'data/{subject}_task-{story}_'
+                                    f'half-2_{roi}_{hemi}.npy')
+                        
+                    else:
+                        half1_fn = (f'data/{subject}_task-{story}_'
+                                    f'half-1_{hemi}.npy')
+                        half2_fn = (f'data/{subject}_task-{story}_'
+                                    f'half-2_{hemi}.npy')
                     
                     np.save(half1_fn, half1_data)
                     np.save(half2_fn, half2_data)
                 
             print(f"Saved split-half data for subject '{subject}' "
                   f"and story '{story}'")
-            
-    return data_splits
 
 
 # Load preexisting split data
 def load_split_data(metadata, stories=None, subjects=None,
-                    hemisphere=None, mask=None, half=1, prefix=None):
+                    hemisphere=None, mask=None, half=1, prefix=None,
+                    verbose=False):
     
     # By default grab all stories in metadata
     stories = check_keys(metadata, keys=stories)
@@ -172,9 +183,10 @@ def load_split_data(metadata, stories=None, subjects=None,
                     half_data = half_data[:, mask[hemi]]
 
                 data_splits[story][subject][hemi] = half_data
-                
-            print(f"Loaded subject '{subject}' data "
-                  f"for story '{story}' half {half}")
+            
+            if verbose:
+                print(f"Loaded subject '{subject}' data "
+                      f"for story '{story}' half {half}")
             
     return data_splits
 
@@ -198,3 +210,24 @@ def check_keys(data, keys=None, subkey=None):
         raise KeyError(f"Unrecognized keys: {keys}")
     
     return keys
+
+
+# Load dictionary of input filenames and parameters
+with open('metadata.json') as f:
+    metadata = json.load(f)
+
+stories = ['black', 'forgot']
+exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
+subject_list = [f'sub-{i:02}' for i in range(1, 49)
+                if i not in exclude]
+subjects = {story: subject_list for story in stories}
+
+rois = ['EAC', 'AAC', 'TPOJ', 'PCC']
+for roi in rois:
+    mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
+    mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
+    mask = {'lh': mask_lh, 'rh': mask_rh}
+
+    split_data(metadata, stories=stories, subjects=subjects,
+               hemisphere=None, zscore_data=True,
+               mask=mask, roi=f'{roi}_noSRM', save_files=True)
