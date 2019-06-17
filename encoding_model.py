@@ -9,22 +9,6 @@ from gifti_io import read_gifti, write_gifti
 from split_stories import check_keys, load_split_data, split_models
 from brainiak.utils.utils import array_correlation
 
-# Load dictionary of input filenames and parameters
-with open('metadata.json') as f:
-    metadata = json.load(f)
-
-# Keep track of some basic variables
-n_vertices = 40962
-model_ndim = 300
-delays = [2, 3, 4, 5]
-
-stories = ['black', 'forgot']
-exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
-subject_list = [f'sub-{i+1:02}' for i in range(48)
-                if i not in exclude]
-#subject_list = ['sub-01', 'sub-02', 'sub-10', 'sub-15']
-subjects = {story: subject_list for story in stories}
-
 
 # Function for selecting and aggregating subjects
 def aggregate_subjects(data, model, subject_list,
@@ -68,87 +52,6 @@ def aggregate_subjects(data, model, subject_list,
     
     return data, model
 
-train_story, test_story = 'forgot', 'forgot'
-train_subjects = ['sub-02', 'sub-10']
-train_subjects = [s for s in subject_list if s is not 'sub-15']
-test_subjects = ['sub-15']
-hemisphere = 'lh'
-aggregation = 'average'
-
-# Load masks for both hemispheres
-rois = ['EAC', 'AAC', 'TPOJ', 'PCC', 'cortex']
-roi = 'TPOJ'
-mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
-mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
-mask = {'lh': mask_lh, 'rh': mask_rh}
-
-# Split models and load in data splits
-train_model = split_models(metadata, stories=stories,
-                           subjects=subjects, half=1,
-                           delays=delays)
-test_model = split_models(metadata, stories=stories,
-                          subjects=subjects, half=2,
-                          delays=delays)
-    
-# Load in split data for train and test
-train_data = load_split_data(metadata, stories=stories,
-                             subjects=subjects, hemisphere=hemisphere,
-                             mask=mask, half=1)
-test_data = load_split_data(metadata, stories=stories,
-                            subjects=subjects, hemisphere=hemisphere,
-                            mask=mask, half=2)
-
-# Load in split cSRM data for train and test
-train_data = load_split_data(metadata, stories=stories,
-                             subjects=subjects, hemisphere=hemisphere,
-                             half=1, prefix=f'{roi}_cSRM-train')
-test_data = load_split_data(metadata, stories=stories,
-                            subjects=subjects, hemisphere=hemisphere,
-                            half=2, prefix=f'{roi}_cSRM-test')
-    
-# Aggregate data and model across subjects
-train_data, train_model = aggregate_subjects(train_data[train_story],
-                                             train_model[train_story],
-                                             train_subjects,
-                                             hemi=hemi,
-                                             aggregation=aggregation)
-test_data, test_model = aggregate_subjects(test_data[test_story],
-                                           test_model[test_story],
-                                           test_subjects,
-                                           hemi=hemi,
-                                           aggregation=aggregation)
-
-# Make custom correlation scorer
-correlation_scorer = make_scorer(array_correlation)
-
-
-# Declare ridge regression model
-alpha = 100.
-ridge = Ridge(alpha=alpha, fit_intercept=True, normalize=False,
-              copy_X=True, tol=0.001, solver='auto')
-
-# Fit training data
-ridge.fit(train_model, train_data)
-
-# Get coefficients of trained model
-coefficients = ridge.coef_
-
-# Use trained model to predict response for test data
-predicted_data = ridge.predict(test_model)
-
-# Compute correlation between predicted and test response
-performance = array_correlation(predicted_data,
-                                test_data)
-
-# Collapse coefficients across delays for decoding
-collapse_coef = np.mean(np.split(ridge.coef_, len(delays),
-                                axis=1), axis=0)
-collapse_test_model = np.mean(np.split(test_model, len(delays),
-                                axis=1), axis=0)
-
-# Decoding via dot product between test samples and coefficients
-predicted_model = test_data.dot(collapse_coef)
-
 
 # Function to compute correlation-based rank accuracy
 def rank_accuracy(predicted_model, test_model, mean=True):
@@ -171,32 +74,12 @@ def rank_accuracy(predicted_model, test_model, mean=True):
 
     return ranks
 
-accuracy = rank_accuracy(predicted_model, collapse_test_model)
-
-print(np.mean(performance), np.amax(performance))
-print(accuracy)
-
-
-###
-
-sns.distplot(mean_r, hist=False, kde_kws={"shade": True})
-sns.distplot(performance, hist=False, kde_kws={"shade": True})
-
-
-# Fill results back in cortical mask and write GIfTI
-result_map = np.zeros(n_vertices)
-result_map[mask] = performance
-
-template_fn = metadata['black']['data']['sub-02']
-
-write_gifti(result_map, 'black_performance_test-xs_lh.gii', template_fn)
-
 
 # Function to run grid search over alphas across voxels
 def grid_search(train_model, train_data, alphas, scorer, n_splits=10):
 
     # Get number of voxels
-    n_voxels = train_model.shape[1]
+    n_voxels = train_data.shape[1]
 
     # Set up ridge regression
     ridge = Ridge(fit_intercept=True, normalize=False,
@@ -235,9 +118,139 @@ def grid_search(train_model, train_data, alphas, scorer, n_splits=10):
     return best_alphas, best_scores, all_scores
 
 
-alphas = np.logspace(-1, 3, num=10)
+# Name guard for actually running encoding model analysis
+if __name__ == '__main__':
 
-best_alphas, best_scores, all_scores = grid_search(train_model,
-                                                   train_data[:, :100],
-                                                   alphas,
-                                                   correlation_scorer)
+    # Load dictionary of input filenames and parameters
+    with open('metadata.json') as f:
+        metadata = json.load(f)
+
+    # Create story and subject lists
+    stories = ['black', 'forgot']
+    exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
+    subject_list = [f'sub-{i:02}' for i in range(1, 49)
+                    if i not in exclude]
+    subjects = {story: subject_list for story in stories}
+    
+    # Set ROIs, spaces, and hemispheres
+    rois = ['EAC', 'AAC', 'TPOJ', 'PMC']    
+    prefixes = [('no SRM', 'noSRM', 'noSRM'),
+                ('cSRM (k = 300)', 'k-300_cSRM-train', 'k-300_cSRM-test'),
+                ('cSRM (k = 100)', 'k-100_cSRM-train', 'k-100_cSRM-test'),
+                ('cSRM (k = 50)', 'k-50_cSRM-train', 'k-50_cSRM-test'),
+                ('cSRM (k = 10)', 'k-10_cSRM-train', 'k-10_cSRM-test')]
+    hemis = ['lh', 'rh']
+
+    # Set some parameters for encoding model
+    delays = [2, 3, 4, 5]
+    aggregation = 'average'
+    across_story = False
+    alpha = 100.
+
+    # Make custom correlation scorer
+    correlation_scorer = make_scorer(array_correlation)
+    
+    # Populate results file if it already exists
+    results_fn = 'data/encoding_within-story_avg_results_NEW.npy'
+    if exists(results_fn):
+        results = np.load(results_fn).item()
+    else:
+        results = {}
+
+    # Loop through keys without replacing existing ones
+    for story in stories:
+        if story not in results:
+            results[story] = {}
+
+        if not across_story:
+            train_story, test_story = story, story
+        else:
+            test_story = story
+            train_story = [st for st in stories if st is not test_story][0]
+
+        # Split models and load in data splits
+        train_model_dict = split_models(metadata, stories=stories,
+                                        subjects=subjects, half=1,
+                                        delays=delays)
+        test_model_dict = split_models(metadata, stories=stories,
+                                       subjects=subjects, half=2,
+                                       delays=delays)
+
+        for roi in rois:
+            if roi not in results[story]:
+                results[story][roi] = {}
+
+            for prefix in prefixes:
+                if prefix[0] not in results[story][roi]:
+                    results[story][roi][prefix[0]] = {}
+
+                # Load in split cSRM data for train and test
+                train_dict = load_split_data(metadata, stories=stories,
+                                             subjects=subjects, hemisphere=hemis,
+                                             half=1, prefix=f'{roi}_' + prefix[1])
+                test_dict = load_split_data(metadata, stories=stories,
+                                            subjects=subjects, hemisphere=hemis,
+                                            half=2, prefix=f'{roi}_' + prefix[2])
+
+                for s in range(len(subject_list)):
+
+                    test_subjects = [subject_list[s]]
+                    test_subject = test_subjects[0]
+                    train_subjects = [sub for sub in subject_list
+                                      if sub is not test_subjects[0]]
+
+                    if test_subject not in results[story][roi][prefix[0]]:
+                        results[story][roi][prefix[0]][test_subject] = {}
+
+                    for hemi in hemis:
+                        if hemi not in results[story][roi][prefix[0]][test_subject]:
+                            results[story][roi][prefix[0]][test_subject][hemi] = {}
+
+                            # Aggregate data and model across subjects
+                            train_data, train_model = aggregate_subjects(train_dict[train_story],
+                                                                         train_model_dict[train_story],
+                                                                         train_subjects,
+                                                                         hemi=hemi,
+                                                                         aggregation=aggregation)
+                            test_data, test_model = aggregate_subjects(test_dict[test_story],
+                                                                       test_model_dict[test_story],
+                                                                       test_subjects,
+                                                                       hemi=hemi,
+                                                                       aggregation=aggregation)
+
+                            # Declare ridge regression model
+                            ridge = Ridge(alpha=alpha, fit_intercept=True, normalize=False,
+                                          copy_X=True, tol=0.001, solver='auto')
+
+                            # Fit training data
+                            ridge.fit(train_model, train_data)
+
+                            # Get coefficients of trained model
+                            coefficients = ridge.coef_
+
+                            # Use trained model to predict response for test data
+                            predicted_data = ridge.predict(test_model)
+
+                            # Compute correlation between predicted and test response
+                            performance = array_correlation(predicted_data,
+                                                            test_data)
+
+                            # Collapse coefficients across delays for decoding
+                            collapse_coef = np.mean(np.split(ridge.coef_, len(delays),
+                                                            axis=1), axis=0)
+                            collapse_test_model = np.mean(np.split(test_model, len(delays),
+                                                            axis=1), axis=0)
+
+                            # Decoding via dot product between test samples and coefficients
+                            predicted_model = test_data.dot(collapse_coef)
+
+                            accuracy = rank_accuracy(predicted_model, collapse_test_model)
+
+                            results[story][roi][prefix[0]][test_subject][hemi]['encoding'] = performance
+                            results[story][roi][prefix[0]][test_subject][hemi]['decoding'] = accuracy
+
+                            print(f"Finished forwarding encoding analysis for "
+                                  f"{story}, {roi}, {prefix}, {test_subjects}")
+                            print(np.mean(performance), accuracy)
+
+    np.save(results_fn, results)
