@@ -8,11 +8,6 @@ from split_stories import check_keys, load_split_data
 from target_isfc import parcel_means, target_isfc
 
 
-# Load dictionary of input filenames and parameters
-with open('metadata.json') as f:
-    metadata = json.load(f)
-
-
 # Fit SRM on connectivity matrices
 def srm_fit(target_fcs, stories=None, subjects=None,
             hemisphere=None, k=360, n_iter=10):
@@ -152,57 +147,64 @@ def connectivity_srm(train_data, test_data, targets, target_fc=target_isfc,
     print("Finished applying cSRM transformations to test data")
     
     return train_transformed, test_transformed
-    
-    
-# Load the surface parcellation
-n_parcels = 360
-atlas = np.hstack((read_gifti('data/MMP_fsaverage6.lh.gii'),
-                   read_gifti('data/MMP_fsaverage6.rh.gii')
-                   + 1000))[0]
-parcel_labels = np.unique(atlas)
-parcel_labels = parcel_labels[~np.logical_or(parcel_labels == 0,
-                                             parcel_labels == 1000)]
-assert len(parcel_labels) == n_parcels
-
-# Subjects and stories
-stories = ['black', 'forgot']
-exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
-subject_list = [f'sub-{i:02}' for i in range(1, 49)
-                if i not in exclude]
-subjects = {story: subject_list for story in stories}
-
-# Load in first-half training surface data
-target_data = load_split_data(metadata, stories=stories,
-                              subjects=subjects,
-                              half=1)
-
-# Compute targets
-targets = parcel_means(target_data, atlas, parcel_labels=parcel_labels,
-                       stories=stories, subjects=subjects)
 
 
-# Load in ROI masks for both hemispheres
-roi = 'TPOJ'
-mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
-mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
-mask = {'lh': mask_lh, 'rh': mask_rh}
+# Name guard for when we want to actually compute cSRM
+if __name__ == '__main__':
 
-# Re-load in first-half training surface data with ROI mask
-train_data = load_split_data(metadata, stories=stories,
-                             subjects=subjects,
-                             mask=mask, half=1)
+    # Load dictionary of input filenames and parameters
+    with open('metadata.json') as f:
+        metadata = json.load(f)
 
-# Re-load in first-half training surface data with ROI mask
-test_data = load_split_data(metadata, stories=stories,
-                            subjects=subjects,
-                            mask=mask, half=2)
+    # Subjects and stories
+    stories = ['black', 'forgot']
+    exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
+    subject_list = [f'sub-{i:02}' for i in range(1, 49)
+                    if i not in exclude]
+    subjects = {story: subject_list for story in stories}
+        
+    # Load the surface parcellation
+    n_parcels = 360
+    atlas = np.hstack((read_gifti('data/MMP_fsaverage6.lh.gii'),
+                       read_gifti('data/MMP_fsaverage6.rh.gii')
+                       + 1000))[0]
+    parcel_labels = np.unique(atlas)
+    parcel_labels = parcel_labels[~np.logical_or(parcel_labels == 0,
+                                                 parcel_labels == 1000)]
+    assert len(parcel_labels) == n_parcels
 
-# Apply connectivity SRM
-k = 10
-n_iter = 100
-train_transformed, test_transformed = connectivity_srm(
-                                        train_data, test_data, targets,
-                                        train_half=1, test_half=2,
-                                        stories=stories, subjects=subjects,
-                                        save_prefix=f'{roi}_k-{k}_cSRM',
-                                        k=k, n_iter=n_iter)
+    # Load in first-half training surface data
+    target_data = load_split_data(metadata, stories=stories,
+                                  subjects=subjects,
+                                  half=1)
+
+    # Compute targets
+    targets = parcel_means(target_data, atlas, parcel_labels=parcel_labels,
+                           stories=stories, subjects=subjects)
+
+
+    # Load in ROI masks for both hemispheres
+    roi = 'PMC'
+    mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
+    mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
+    mask = {'lh': mask_lh, 'rh': mask_rh}
+
+    # Re-load in first-half training surface data with ROI mask
+    train_data = load_split_data(metadata, stories=stories,
+                                 subjects=subjects,
+                                 mask=mask, half=1)
+
+    # Re-load in first-half training surface data with ROI mask
+    test_data = load_split_data(metadata, stories=stories,
+                                subjects=subjects,
+                                mask=mask, half=2)
+
+    # Apply connectivity SRM
+    k = 300
+    n_iter = 100
+    train_transformed, test_transformed = connectivity_srm(
+                                            train_data, test_data, targets,
+                                            train_half=1, test_half=2,
+                                            stories=stories, subjects=subjects,
+                                            save_prefix=f'{roi}_k-{k}_cSRM',
+                                            k=k, n_iter=n_iter)

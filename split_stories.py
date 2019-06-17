@@ -212,22 +212,25 @@ def check_keys(data, keys=None, subkey=None):
     return keys
 
 
-# Load dictionary of input filenames and parameters
-with open('metadata.json') as f:
-    metadata = json.load(f)
+# Name guard for when we actually want to split all daata
+if __name__ == '__main__':
 
-stories = ['black', 'forgot']
-exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
-subject_list = [f'sub-{i:02}' for i in range(1, 49)
-                if i not in exclude]
-subjects = {story: subject_list for story in stories}
+    # Load dictionary of input filenames and parameters
+    with open('metadata.json') as f:
+        metadata = json.load(f)
 
-rois = ['EAC', 'AAC', 'TPOJ', 'PCC']
-for roi in rois:
-    mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
-    mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
-    mask = {'lh': mask_lh, 'rh': mask_rh}
+    stories = ['black', 'forgot']
+    exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
+    subject_list = [f'sub-{i:02}' for i in range(1, 49)
+                    if i not in exclude]
+    subjects = {story: subject_list for story in stories}
 
-    split_data(metadata, stories=stories, subjects=subjects,
-               hemisphere=None, zscore_data=True,
-               mask=mask, roi=f'{roi}_noSRM', save_files=True)
+    rois = ['EAC', 'AAC', 'TPOJ', 'PMC']
+    for roi in rois:
+        mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
+        mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
+        mask = {'lh': mask_lh, 'rh': mask_rh}
+
+        split_data(metadata, stories=stories, subjects=subjects,
+                   hemisphere=None, zscore_data=True,
+                   mask=mask, roi=f'{roi}_noSRM', save_files=True)
