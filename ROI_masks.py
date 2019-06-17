@@ -14,6 +14,7 @@ with open('MMP_ROIs.json') as f:
 roi_colors = {'EAC': rois['EAC']['A1'],
               'AAC': rois['AAC']['STSdp'],
               'PCC': rois['PCC']['POS2'],
+              'PMC': rois['PCC']['POS2'],
               'TPOJ': rois['TPOJ']['TPOJ1']}
     
 # Create separate masks
