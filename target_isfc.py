@@ -137,9 +137,9 @@ def parcel_srm(data, atlas, k=3, parcel_labels=None,
     return parcels
 
 
-# Compute ISFC between ROI voxels and parcel means
+# Compute ISFC between ROI voxels and targets
 def target_isfc(data, targets, stories=None, subjects=None,
-                hemisphere=None, zscore_isfcs=True):
+                hemisphere=None, zscore_fcs=True):
 
     # By default grab all stories
     stories = check_keys(data, keys=stories)
@@ -175,7 +175,7 @@ def target_isfc(data, targets, stories=None, subjects=None,
             isfcs = isfc(data_stack, targets=target_stack)
 
             # Optionally z-score across targets
-            if zscore_isfcs:
+            if zscore_fcs:
                 isfcs = zscore(np.nan_to_num(isfcs), axis=2)
 
             for s, subject in enumerate(subject_list):
@@ -184,3 +184,58 @@ def target_isfc(data, targets, stories=None, subjects=None,
         print(f"Finished computing target ISFCs for story '{story}'")
 
     return target_isfcs
+
+
+# Compute within-subject FC between ROI voxels and targets
+def target_wsfc(data, targets, stories=None, subjects=None,
+                hemisphere=None, zscore_fcs=True):
+
+    # By default grab all stories
+    stories = check_keys(data, keys=stories)
+
+    target_isfcs = {}
+    for story in stories:
+
+        target_isfcs[story] = {}
+
+        # By default just grab all subjects
+        subject_list = check_keys(data[story], keys=subjects,
+                                  subkey=story)
+
+        for subject in subject_list:
+            target_isfcs[story][subject] = {}
+
+        # Stack targets in third dimension
+        target_stack = np.dstack(([targets[story][subject]
+                           for subject in subject_list]))
+
+        # By default grab both hemispheres
+        hemis = check_keys(data[story][subject_list[0]],
+                           keys=hemisphere)
+
+        # Get for specified hemisphere(s)
+        for hemi in hemis:
+
+            # Grab ROI data and targets
+            data_stack = np.dstack(([data[story][subject][hemi]
+                                     for subject in subject_list]))
+
+            # Compute WSFCs between ROI and targets
+            wsfcs = []
+            for s in np.arange(data_stack.shape[2]):
+                d = data_stack[..., s].shape[1]
+                wsfc = np.corrcoef(data_stack[..., s].T,
+                                   target_stack[..., s].T)[:d, d:]
+                wsfcs.append(np.expand_dims(wsfc, 0))
+            wsfcs = np.vstack(wsfcs)
+
+            # Optionally z-score across targets
+            if zscore_fcs:
+                wsfcs = zscore(np.nan_to_num(wsfcs), axis=2)
+
+            for s, subject in enumerate(subject_list):
+                target_isfcs[story][subject][hemi] = wsfcs[s]
+
+        print(f"Finished computing target WSFCs for story '{story}'")
+
+    return target_wsfcs

@@ -209,6 +209,7 @@ if __name__ == '__main__':
     for k in [10, 50, 100, 300]:
         train_transformed, test_transformed = connectivity_srm(
                                                 train_data, test_data, targets,
+                                                target_fc=target_isfc,
                                                 train_half=1, test_half=2,
                                                 stories=stories, subjects=subjects,
                                                 save_prefix=f'{roi}_k-{k}_cSRM',
