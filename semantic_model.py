@@ -35,7 +35,7 @@ hz = 512
 input_fn = metadata[story_name]['timestamps']
 with open(input_fn) as f:
     lines = [line.strip().split(',')[:3] for line in f.readlines()]
-    
+
 # Reorganize the transcript and exclude some words
 transcript = []
 for word, onset, offset in lines:

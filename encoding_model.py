@@ -1,4 +1,5 @@
 import json
+from os.path import exists
 import numpy as np
 from sklearn.linear_model import Ridge
 from sklearn.metrics import make_scorer
@@ -13,16 +14,16 @@ from brainiak.utils.utils import array_correlation
 # Function for selecting and aggregating subjects
 def aggregate_subjects(data, model, subject_list,
                        hemi='lh',  aggregation='average'):
-    
+
     # Broadcast model if concatenating subjects
     if aggregation == 'concatenate':
         model = np.tile(model, (len(subject_list), 1))
-    
+
     # Allow for easy single subject input
     if type(subject_list) == str:
         subject = subject_list
         data = data[subject][hemi]
-        
+
     else:
         if len(subject_list) == 1:
             data = data[subject_list[0]][hemi]
@@ -45,11 +46,11 @@ def aggregate_subjects(data, model, subject_list,
 
             elif aggregation == 'concatenate' and n_subjects > 1:
                 data = np.vstack(data_list)
-                
+
     if len(model) != len(data):
         raise ValueError("Model and data have mismatching shape! "
                          f"model: {model.shape}, data: {data.shape}")
-    
+
     return data, model
 
 
@@ -111,7 +112,7 @@ def grid_search(train_model, train_data, alphas, scorer, n_splits=10):
     best_alphas = np.array(best_alphas)
     best_scores = np.array(best_scores)
     all_scores = np.column_stack(all_scores)
-    
+
     assert (best_alphas.shape[0] == best_scores.shape[0]
             == all_scores.shape[1] == n_voxels)
 
@@ -131,7 +132,7 @@ if __name__ == '__main__':
     subject_list = [f'sub-{i:02}' for i in range(1, 49)
                     if i not in exclude]
     subjects = {story: subject_list for story in stories}
-    
+
     # Set ROIs, spaces, and hemispheres
     rois = ['EAC', 'AAC', 'TPOJ', 'PMC']    
     prefixes = [('no SRM', 'noSRM', 'noSRM'),
@@ -149,9 +150,9 @@ if __name__ == '__main__':
 
     # Make custom correlation scorer
     correlation_scorer = make_scorer(array_correlation)
-    
+
     # Populate results file if it already exists
-    results_fn = 'data/encoding_within-story_avg_results_NEW.npy'
+    results_fn = 'data/encoding_within-story_avg_parcel-SRM_results.npy'
     if exists(results_fn):
         results = np.load(results_fn).item()
     else:

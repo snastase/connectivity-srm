@@ -43,7 +43,7 @@ plt.savefig('figures/ts_classification_st10.png',
 
 # Plot temporal (time-series) ISC results
 results = np.load('data/temporal_isc_results.npy').item()           
-    
+
 melted_s = {'story': [], 'ROI': [], 'space': [],
             'hemisphere': [], 'temporal ISC': []}
 melted_f = {'story': [], 'ROI': [], 'space': [],
@@ -81,7 +81,7 @@ for col in range(4):
                   join=False, dodge=.65, data=results_s_df,
                   aspect=.6, legend=False, markers='_', color='k')
     ax.legend_.remove()
-    
+
 plt.savefig('figures/temporal_isc.png',
             bbox_inches='tight', dpi=300, transparent=True)
 
@@ -114,7 +114,7 @@ plt.savefig('figures/spatial_isc.png',
 
 
 # Plot forward encoding model results
-results = np.load('data/encoding_within-story_avg_results_NEW.npy').item()
+results = np.load('data/encoding_within-story_avg_results.npy').item()
 
 melted_s = {'story': [], 'ROI': [], 'space': [],
             'hemisphere': [], 'correlation': []}
@@ -154,21 +154,21 @@ g = sns.catplot(x='story', y='correlation', hue='space',
                 col='ROI', data=results_f_df, aspect=.6,
                 alpha=.2, zorder=0, legend=False,
                 palette=([colors.to_rgba('.7')] +
-                         sns.color_palette("plasma_r", 4)))
+                          sns.color_palette("plasma_r", 4)))
 for col in range(4):
     ax = g.facet_axis(0, col)
     sns.pointplot(x='story', y='correlation', hue='space', ci=99,
                   join=False, dodge=.65, data=results_s_df,
                   aspect=.6, legend=False, markers='_', color='k')
     ax.legend_.remove()
-    
+
 plt.savefig('figures/encoding_within-story_avg.png',
             bbox_inches='tight', dpi=300, transparent=True)
 
 
 # Plot model-based decoding results
-results = np.load('data/encoding_within-story_avg_results_NEW.npy').item()
-                                  
+results = np.load('data/encoding_within-story_avg_results.npy').item()
+
 melted = {'story': [], 'ROI': [], 'space': [],
           'hemisphere': [], 'rank accuracy': []}
 for story in results.keys():
@@ -185,7 +185,7 @@ for story in results.keys():
 
 results_df = pd.DataFrame(melted)
 
-sns.set(style='white', font_scale=1.5)
+sns.set(style='white')
 g = sns.catplot(x='story', y='rank accuracy', hue='space',
                 col='ROI', kind='bar', data=results_df, aspect=.6,
                 palette=([colors.to_rgba('.7')] +

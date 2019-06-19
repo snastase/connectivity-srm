@@ -47,13 +47,13 @@ for story in stories:
         split_fn = basename(data_fn).split('_')
         sub = split_fn[0]
         hemi = split_fn[-1].split('.')[-3]
-        
+
         if not story in metadata:
             metadata[story] = {'data': {}}
         if sub not in metadata[story]['data']:
             metadata[story]['data'][sub] = {'lh': {},
                                             'rh': {}}
         metadata[story]['data'][sub][hemi] = data_fn
-    
+
 with open('metadata.json', 'w') as f:
     json.dump(metadata, f, sort_keys=True, indent=2)

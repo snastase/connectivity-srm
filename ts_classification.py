@@ -46,10 +46,10 @@ def time_segment_correlation(data, segment_length, average=False):
     # For each subject, get correlation with average of others
     correlations = []
     for i_subject in np.arange(n_subjects):
-        
+
         # Time series for one subject
         subject = data[..., i_subject]
-        
+
         # Compute average time series of others
         others = np.dstack([data[..., i_other]
                             for i_other in np.arange(n_subjects)
@@ -80,7 +80,7 @@ def time_segment_correlation(data, segment_length, average=False):
 def correlation_classification(correlations):
     accuracies = []
     n_segments = correlations.shape[0]
-    
+
     # For each time point compare diagonal correlation with off-diaogonal
     for correlation in np.moveaxis(correlations, 2, 0):
         n_hits = 0
@@ -91,30 +91,30 @@ def correlation_classification(correlations):
                                    off != i]):
                 n_hits += 1
         accuracies.append(n_hits / n_segments)
-        
+
     accuracies = np.array(accuracies)
     chance = 1/n_segments
-    
+
     return accuracies, chance
 
 
 # Convenience function stack subjects into array
 def stack_subjects(data, subjects=None, hemisphere='lh'):
-    
+
     # By default just grab all subjects
     subject_list = check_keys(data, keys=subjects)
-    
+
     subject_stack = np.dstack([data[subject][hemisphere] for
                                subject in subject_list])
-    
+
     assert subject_stack.shape[2] == len(subject_list)
-    
+
     return subject_stack
 
 
 # Name guard for when we actually want to split all daata
 if __name__ == '__main__':
-    
+
     # Load dictionary of input filenames and parameters
     with open('metadata.json') as f:
         metadata = json.load(f)
@@ -189,10 +189,10 @@ if __name__ == '__main__':
 
     np.save(results_fn, results)
 
-    
+
     # Compute temporal and spatial intersubject coorrelations
     isc_type = 'temporal'
-    
+
     results_fn = f'data/{isc_type}_isc_no-mean_results.npy'
     if exists(results_fn):
         results = np.load(results_fn).item()

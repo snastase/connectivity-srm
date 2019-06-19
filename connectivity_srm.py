@@ -11,10 +11,10 @@ from target_isfc import parcel_srm, target_isfc
 # Fit SRM on connectivity matrices
 def srm_fit(target_fcs, stories=None, subjects=None,
             hemisphere=None, k=360, n_iter=10):
-    
+
     # By default grab all stories
     stories = check_keys(target_fcs, keys=stories)
-    
+
     # Recompile FCs accounting for repeat subjects
     subject_fcs = {}
     for story in stories:
@@ -24,11 +24,11 @@ def srm_fit(target_fcs, stories=None, subjects=None,
                                   subkey=story)
 
         for subject in subject_list:
-                        
+
             # For simplicity we just assume same hemis across stories/subjects
             hemis = check_keys(target_fcs[story][subject],
                                keys=hemisphere)
-            
+
             for hemi in hemis: 
                 if subject not in subject_fcs:
                     subject_fcs[subject] = {}
@@ -50,10 +50,10 @@ def srm_fit(target_fcs, stories=None, subjects=None,
     # Convert FCs to list for SRM
     transforms = {}
     for hemi in hemis:
-        
+
         # Declare SRM for this hemi
         srm = SRM(n_iter=n_iter, features=k)
-        
+
         subject_ids, subject_stack = [], []
         for subject in subject_list:
             subject_ids.append(subject)
@@ -76,41 +76,41 @@ def srm_fit(target_fcs, stories=None, subjects=None,
 def srm_transform(data, transforms, half=1, stories=None,
                   subjects=None, hemisphere=None,
                   zscore_transformed=True, save_prefix=None):
-    
+
     # By default grab all stories
     stories = check_keys(data, keys=stories)
 
     data_transformed = {}
     for story in stories:
-        
+
         data_transformed[story] = {}
-        
+
         # By default just grab all subjects
         subject_list = check_keys(data[story], keys=subjects,
                                   subkey=story)
 
         for subject in subject_list:
-            
+
             data_transformed[story][subject] = {}
             hemis = check_keys(data[story][subject],
                                keys=hemisphere)
-            
+
             for hemi in hemis:
-                
+
                 transform = transforms[subject][hemi]
                 transformed = data[story][subject][hemi].dot(transform)
-                
+
                 # Optionally z-score transformed output data
                 if zscore_transformed:
                     transformed = zscore(transformed, axis=0)
-                
+
                 data_transformed[story][subject][hemi] = transformed
-                
+
                 if save_prefix:
                     save_fn = (f'data/{subject}_task-{story}_'
                                f'half-{half}_{save_prefix}_{hemi}.npy')
                     np.save(save_fn, transformed)
-                        
+
     return data_transformed
 
 
@@ -118,14 +118,14 @@ def srm_transform(data, transforms, half=1, stories=None,
 def connectivity_srm(train_data, test_data, targets, target_fc=target_isfc,
                      train_half=1, test_half=2, stories=None, subjects=None,
                      hemisphere=None, save_prefix=None, **kwargs):
-    
+
     # Compute ISFCs with targets
     target_fcs = target_fc(train_data, targets, stories=stories,
                            subjects=subjects, hemisphere=hemisphere)
-    
+
     # Fit SRM on connectivities and get transformation matrices
     transforms = srm_fit(target_fcs, hemisphere=hemisphere, **kwargs)
-    
+
     # Apply transformations to training data
     train_transformed = srm_transform(train_data, transforms,
                                       half=train_half,
@@ -135,7 +135,7 @@ def connectivity_srm(train_data, test_data, targets, target_fc=target_isfc,
                                       save_prefix=save_prefix + '-train')
     
     print("Finished applying cSRM transformations to training data")
-    
+
     # Apply transformations to test data
     test_transformed = srm_transform(test_data, transforms,
                                      half=test_half,
@@ -145,7 +145,7 @@ def connectivity_srm(train_data, test_data, targets, target_fc=target_isfc,
                                      save_prefix=save_prefix + '-test')
     
     print("Finished applying cSRM transformations to test data")
-    
+
     return train_transformed, test_transformed
 
 
@@ -162,10 +162,10 @@ if __name__ == '__main__':
     subject_list = [f'sub-{i:02}' for i in range(1, 49)
                     if i not in exclude]
     subjects = {story: subject_list for story in stories}
-    
+
     # Option to perform cSRM in each parcel
     srm_parcels = False
-    
+
     # Load the surface parcellation
     atlas = {'lh': read_gifti('data/MMP_fsaverage6.lh.gii')[0],
              'rh': read_gifti('data/MMP_fsaverage6.rh.gii')[0]}
@@ -181,13 +181,13 @@ if __name__ == '__main__':
     if not srm_parcels:
         targets = parcel_means(target_data, atlas, parcel_labels=parcel_labels,
                                stories=stories, subjects=subjects)
-    
+
     # Compute targets using parcelwise cSRM
     else:
         targets = parcel_srm(target_data, atlas, k=3,
                              parcel_labels=parcel_labels,
                              stories=stories, subjects=subjects)
-    
+
     # Load in ROI masks for both hemispheres
     roi = 'TPOJ'
     mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
