@@ -2,6 +2,7 @@ import json
 import numpy as np
 from scipy.stats import zscore
 from brainiak.isc import isfc
+from brainiak.funcalign.srm import SRM
 from split_stories import check_keys
 
 
@@ -24,29 +25,115 @@ def parcel_means(data, atlas, parcel_labels=None,
         # Stack left and right hemispheres for each subject
         for subject in subject_list:
 
-            # Horizontally stack surface data
-            data_stack = np.hstack((data[story][subject]['lh'],
-                                    data[story][subject]['rh']))
-
-            # Compute mean time series per parcel
-            parcel_tss = []
-            for parcel_label in parcel_labels:
-
-                # Get mean for this parcel
-                parcel_ts = np.mean(data_stack[:, atlas == parcel_label],
-                                    axis=1)
-
-                # Expand dimension for easier stacking
-                parcel_tss.append(np.expand_dims(parcel_ts, 1))
-
-            # Stack parcel means
-            parcel_tss = np.hstack(parcel_tss)
-            assert parcel_tss.shape[1] == len(parcel_labels)
-
-            parcels[story][subject] = parcel_tss
+            # Loop through both hemispheres
+            hemi_stack = []
+            for hemi in ['lh', 'rh']:
+                
+                # Grab mean parcel time series for this hemisphere
+                parcel_tss = []
+                for parcel_label in parcel_labels[hemi]:
+                    
+                    # Get mean for this parcel
+                    parcel_ts = np.mean(data[story][subject][hemi][:,
+                                            atlas[hemi] == parcel_label],
+                                        axis=1)
+                    
+                    # Expand dimension for easier stacking
+                    parcel_tss.append(np.expand_dims(parcel_ts, 1))
+                    
+                # Stack parcel means
+                parcel_tss = np.hstack(parcel_tss)
+                hemi_stack.append(parcel_tss)
+                
+            # Stack hemispheres
+            hemi_stack = np.hstack(hemi_stack)
+            assert hemi_stack.shape[1] == (len(parcel_labels['lh']) +
+                                           len(parcel_labels['rh']))
+            
+            parcels[story][subject] = hemi_stack
 
         print(f"Finished computing parcel means for '{story}'")
     
+    return parcels
+
+
+# Compute means for all parcels
+def parcel_srm(data, atlas, k=3, parcel_labels=None,
+               stories=None, subjects=None):
+    
+    # By default grab all stories
+    stories = check_keys(data, keys=stories)
+    
+    # Firsts compute mean time-series for all target parcels
+    targets = parcel_means(data, atlas,
+                           parcel_labels=parcel_labels,
+                           stories=stories, subjects=subjects)
+    
+    # Compute ISFCs with targets for all vertices
+    target_fcs = target_isfc(data, targets, stories=stories,
+                             subjects=subjects)
+
+    parcels = {}
+    for story in stories:
+        
+        parcels[story] = {}
+             
+        # By default just grab all subjects
+        subject_list = check_keys(data[story], keys=subjects,
+                                  subkey=story)
+        
+        # Loop through both hemispheres
+        hemi_stack = []
+        for hemi in ['lh', 'rh']:
+            
+            # Loop through parcels
+            parcel_tss = []
+            for parcel_label in parcel_labels[hemi]:
+                
+                # Resort parcel FCs into list of subject parcels
+                fc_stack = []
+                ts_stack = []
+                for subject in subject_list:
+                
+                    # Grab the connectivities for this parcel
+                    parcel_fcs = target_fcs[story][subject][hemi][
+                                            atlas[hemi] == parcel_label, :]
+                    fc_stack.append(parcel_fcs)
+                    
+                    ts_stack.append(data[story][subject][hemi][:,
+                                            atlas[hemi] == parcel_label])
+
+                # Set up fresh SRM
+                srm = SRM(features=k)
+                
+                # Train SRM on parcel connectivities
+                srm.fit(np.nan_to_num(fc_stack))
+                
+                # Apply transformations to time series
+                transformed_stack = [ts.dot(w) for ts, w
+                                     in zip(ts_stack, srm.w_)]
+                transformed_stack = np.dstack(transformed_stack)
+                parcel_tss.append(transformed_stack)
+                print(f"Finished SRM for {hemi} parcel "
+                      f"{parcel_label} in '{story}'")
+                
+            # Stack parcel means
+            parcel_tss = np.hstack(parcel_tss)
+            hemi_stack.append(parcel_tss)
+                
+        # Stack hemispheres
+        hemi_stack = np.hstack(hemi_stack)
+        assert hemi_stack.shape[1] == (len(parcel_labels['lh']) +
+                                       len(parcel_labels['rh'])) * k
+        assert hemi_stack.shape[2] == len(subject_list)
+                
+        # Unstack subjects
+        hemi_stack = np.dsplit(hemi_stack, hemi_stack.shape[2])
+        for subject, ts in zip(subject_list, hemi_stack):
+            parcels[story][subject] = np.squeeze(ts)
+                
+        print(f"Finished applying cSRM to parcels for '{story}'")
+        
     return parcels
 
 

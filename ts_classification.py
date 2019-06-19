@@ -140,7 +140,7 @@ if __name__ == '__main__':
     hemis = ['lh', 'rh']
 
     # Load in results file if it already exists
-    results_fn = 'data/ts_classification_avg20_results.npy'
+    results_fn = f'data/ts_classification_st{segment_length}_results.npy'
     if exists(results_fn):
         results = np.load(results_fn).item()
     else:

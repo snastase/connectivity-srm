@@ -30,7 +30,6 @@ results_df = pd.DataFrame(melted)
 sns.set(style='white', font_scale=1.5)
 g = sns.catplot(x='story', y='accuracy', hue='space',
                 col='ROI', kind='bar', data=results_df, aspect=.65,
-                legend=False,
                 palette=([colors.to_rgba('.7')] +
                           sns.color_palette("plasma_r", 4)))
 for col in range(4):
