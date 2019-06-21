@@ -163,33 +163,47 @@ if __name__ == '__main__':
                     if i not in exclude]
     subjects = {story: subject_list for story in stories}
 
-    # Option to perform cSRM in each parcel
-    srm_parcels = False
-
     # Load the surface parcellation
     atlas = {'lh': read_gifti('data/MMP_fsaverage6.lh.gii')[0],
              'rh': read_gifti('data/MMP_fsaverage6.rh.gii')[0]}
     parcel_labels = {'lh': np.unique(atlas['lh'])[1:],
                      'rh': np.unique(atlas['rh'])[1:]}
 
+    # Select story halves for training and test
+    training_half, test_half = 1, 2
+    
     # Load in first-half training surface data
     target_data = load_split_data(metadata, stories=stories,
                                   subjects=subjects,
-                                  half=1)
+                                  half=training_half)
+    
+    # Select the type of connectivity targets
+    target_types = ['parcel-mean', 'parcel-srm', 'vertex-isc']
+    target_type = target_types[2]
 
     # Compute targets as parcel mean time-series
-    if not srm_parcels:
+    if target_type == 'parcel-mean':
         targets = parcel_means(target_data, atlas, parcel_labels=parcel_labels,
                                stories=stories, subjects=subjects)
 
     # Compute targets using parcelwise cSRM
-    else:
+    elif target_type == 'parcel-srm':
         targets = parcel_srm(target_data, atlas, k=3,
                              parcel_labels=parcel_labels,
                              stories=stories, subjects=subjects)
+        
+    # Compute targets based on vertex-wise ISCs
+    elif target_type == 'vertex-isc'
+        threshold = .2
+        targets = vertex_isc(target_data, threshold=threshold, stories=stories,
+                             subjects=subjects, half=half, save_iscs=True)
+        target_type = target_type + '_thresh-{threshold}'
+    
+    # Save targets for re-use (may also be costly to re-compute)
+    np.save(f'data/targets_half-{half}_{target_type}.npy', targets)
 
     # Load in ROI masks for both hemispheres
-    roi = 'TPOJ'
+    roi = 'PMC'
     mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
     mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
     mask = {'lh': mask_lh, 'rh': mask_rh}
@@ -212,5 +226,5 @@ if __name__ == '__main__':
                                                 target_fc=target_isfc,
                                                 train_half=1, test_half=2,
                                                 stories=stories, subjects=subjects,
-                                                save_prefix=f'{roi}_k-{k}_cSRM',
+                                                save_prefix=f'{roi}_vertex-isc_k-{k}_cSRM',
                                                 k=k, n_iter=n_iter)

@@ -1,7 +1,7 @@
 import json
 import numpy as np
 from scipy.stats import zscore
-from brainiak.isc import isfc
+from brainiak.isc import isc, isfc
 from brainiak.funcalign.srm import SRM
 from split_stories import check_keys
 
@@ -135,6 +135,81 @@ def parcel_srm(data, atlas, k=3, parcel_labels=None,
         print(f"Finished applying cSRM to parcels for '{story}'")
 
     return parcels
+
+
+# Compute vertex-level ISCs to select targets
+def vertex_isc(data, threshold=.2, stories=None, subjects=None,
+               half=1, save_iscs=False):
+
+    # By default grab all stories
+    stories = check_keys(data, keys=stories)
+
+    vertex_iscs = {}
+    for story in stories:
+
+        # By default just grab all subjects
+        subject_list = check_keys(data[story], keys=subjects,
+                                  subkey=story)
+
+        # Get for specified hemisphere(s)
+        hemi_stack = []
+        for hemi in ['lh', 'rh']:
+
+            # Grab ROI data and targets
+            data_stack = np.dstack(([data[story][subject][hemi]
+                                     for subject in subject_list]))
+
+            # Compute mean ISCs for this story and hemisphere
+            iscs = isc(data_stack, summary_statistic='mean')
+
+            # Optionally save ISCs
+            if save_iscs:
+                save_fn = (f'data/{story}_half-{half}_vertex-iscs_'
+                           f'thresh-{threshold}_{hemi}.npy')
+                np.save(save_fn, iscs)
+
+            hemi_stack.append(iscs)
+
+        # Stack left and right hemispheres
+        vertex_iscs[story] = np.hstack(hemi_stack)
+        
+        print(f"Finished computing vertex-wise ISCs for '{story}'")
+
+    # Find the average ISCs across all stories (with Fisher Z)
+    mean_iscs = np.tanh(np.mean([np.arctanh(vertex_iscs[story])
+                                 for story in stories], axis=0))
+    
+    # Optionally save ISCs
+    if save_iscs:
+        save_fn = (f'data/mean_half-{half}_vertex-iscs_'
+                   f'thresh-{threshold}_{hemi}.npy')
+        np.save(save_fn, iscs)
+
+    # Get vertices with mean ISC exceeding threshold
+    isc_mask = mean_iscs >= threshold
+    n_mask = np.sum(isc_mask)
+    mask_lh = isc_mask[:len(isc_mask) // 2]
+    mask_rh = isc_mask[len(isc_mask) // 2:]
+
+    # Grab vertex time-series in ISC mask
+    masked_data = {}
+    for story in stories:
+
+        masked_data[story] = {}
+
+        for subject in subject_list:
+
+            # Mask and recombine hemispheres
+            masked = np.hstack((data[story][subject]['lh'][:, mask_lh],
+                                data[story][subject]['rh'][:, mask_rh]))
+            assert masked.shape[1] == n_mask
+
+            masked_data[story][subject] = masked
+
+    print("Finished computing ISC-based targets "
+          f"({n_mask} vertices at threshold r = {threshold})")
+    
+    return masked_data
 
 
 # Compute ISFC between ROI voxels and targets
