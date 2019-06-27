@@ -32,6 +32,7 @@ g = sns.catplot(x='story', y='accuracy', hue='space',
                 col='ROI', kind='bar', data=results_df, aspect=.65,
                 palette=([colors.to_rgba('.7')] +
                           sns.color_palette("plasma_r", 4)))
+))
 for col in range(4):
     ax = g.facet_axis(0, col)
     for i, story in enumerate(chance):
@@ -107,7 +108,7 @@ g = sns.catplot(x='story', y='spatial ISC', hue='space',
                 kind='bar', col='ROI', data=results_df,
                 aspect=.75, legend=False,
                 palette=([colors.to_rgba('.7')] +
-                          sns.color_palette("plasma_r", 4)))
+                         sns.color_palette("plasma_r", 4)))
 
 plt.savefig('figures/spatial_isc.png',
             bbox_inches='tight', dpi=300, transparent=True)
@@ -153,8 +154,9 @@ g = sns.catplot(x='story', y='correlation', hue='space',
                 kind='strip', jitter=True, dodge=True,
                 col='ROI', data=results_f_df, aspect=.6,
                 alpha=.2, zorder=0, legend=False,
-                palette=([colors.to_rgba('.7')] +
-                          sns.color_palette("plasma_r", 4)))
+                palette=([colors.to_rgba('.4')] +
+                         [colors.to_rgba('.7')] + 
+                         sns.color_palette("plasma_r", 4)))
 for col in range(4):
     ax = g.facet_axis(0, col)
     sns.pointplot(x='story', y='correlation', hue='space', ci=99,
@@ -188,8 +190,9 @@ results_df = pd.DataFrame(melted)
 sns.set(style='white')
 g = sns.catplot(x='story', y='rank accuracy', hue='space',
                 col='ROI', kind='bar', data=results_df, aspect=.6,
-                palette=([colors.to_rgba('.7')] +
-                          sns.color_palette("plasma_r", 4)))
+                palette=([colors.to_rgba('.4')] + 
+                         [colors.to_rgba('.7')] + 
+                         sns.color_palette("plasma_r", 4)))
 g.set(ylim=(0.5, None))
 
 plt.savefig('figures/decoding_within-story_avg.png',

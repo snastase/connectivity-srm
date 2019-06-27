@@ -136,6 +136,7 @@ if __name__ == '__main__':
     # Set ROIs, spaces, and hemispheres
     rois = ['EAC', 'AAC', 'TPOJ', 'PMC']    
     prefixes = [('no SRM', 'noSRM', 'noSRM'),
+                ('no SRM (within-subject)', 'noSRM', 'noSRM'),
                 ('cSRM (k = 300)', 'k-300_cSRM-train', 'k-300_cSRM-test'),
                 ('cSRM (k = 100)', 'k-100_cSRM-train', 'k-100_cSRM-test'),
                 ('cSRM (k = 50)', 'k-50_cSRM-train', 'k-50_cSRM-test'),
@@ -152,7 +153,7 @@ if __name__ == '__main__':
     correlation_scorer = make_scorer(array_correlation)
 
     # Populate results file if it already exists
-    results_fn = 'data/encoding_within-story_avg_parcel-SRM_results.npy'
+    results_fn = 'data/encoding_within-story_avg_results.npy'
     if exists(results_fn):
         results = np.load(results_fn).item()
     else:
@@ -197,8 +198,12 @@ if __name__ == '__main__':
 
                     test_subjects = [subject_list[s]]
                     test_subject = test_subjects[0]
-                    train_subjects = [sub for sub in subject_list
-                                      if sub is not test_subjects[0]]
+ 
+                    if prefix[0] == 'no SRM (within-subject)':
+                        train_subjects = test_subjects
+                    else:
+                        train_subjects = [sub for sub in subject_list
+                                          if sub is not test_subjects[0]]
 
                     if test_subject not in results[story][roi][prefix[0]]:
                         results[story][roi][prefix[0]][test_subject] = {}
