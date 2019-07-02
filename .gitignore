@@ -1,3 +1,7 @@
 # don't track actual data files
 data/*.gii
 data/*.npy
+figures/
+.ipynb_checkpoints
+.DS_Store
+data_old/
