@@ -1,0 +1,3 @@
+# don't track actual data files
+data/*.gii
+data/*.npy
