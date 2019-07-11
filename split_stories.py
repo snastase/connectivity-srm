@@ -1,5 +1,5 @@
 import json
-from os.path import exists
+from os.path import exists, join
 import numpy as np
 from scipy.stats import zscore
 from gifti_io import read_gifti
@@ -103,7 +103,8 @@ def split_data(metadata, stories=None, subjects=None,
                     surf_data = surf_data[:, mask[hemi]]
 
                 # Trim data
-                assert surf_data.shape[0] == n_TRs
+                assert surf_data.shape[0] == n_TRs, ("TR mismatch! "
+                    f"Expected {n_TRs}, but got {surf_data.shape[0]}")
                 surf_data = surf_data[data_trims[0]:(
                     -data_trims[1] or None), :]
 
@@ -212,18 +213,26 @@ def check_keys(data, keys=None, subkey=None):
     return keys
 
 
-# Name guard for when we actually want to split all daata
+# Name guard for when we actually want to split all data
 if __name__ == '__main__':
 
     # Load dictionary of input filenames and parameters
-    with open('metadata.json') as f:
+    with open(join('data', 'metadata.json')) as f:
         metadata = json.load(f)
 
-    stories = ['black', 'forgot']
-    exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
-    subject_list = [f'sub-{i:02}' for i in range(1, 49)
-                    if i not in exclude]
-    subjects = {story: subject_list for story in stories}
+    # Split whole-brain data, no ROIs
+    stories = ['pieman', 'prettymouth', 'milkyway',
+               'slumlordreach', 'notthefall', '21styear',
+               'pieman (PNI)', 'bronx (PNI)', 'black', 'forgot']
+    
+    split_data(metadata, stories=stories, subjects=None,
+               hemisphere=None, zscore_data=True,
+               save_files=True)
+
+    # Split data into ROIs   
+    stories = ['pieman', 'prettymouth', 'milkyway',
+               'slumlordreach', 'notthefall', '21styear',
+               'pieman (PNI)', 'bronx (PNI)', 'black', 'forgot']
 
     rois = ['EAC', 'AAC', 'TPOJ', 'PMC']
     for roi in rois:
@@ -231,6 +240,6 @@ if __name__ == '__main__':
         mask_rh = np.load(f'data/{roi}_mask_rh.npy').astype(bool)
         mask = {'lh': mask_lh, 'rh': mask_rh}
 
-        split_data(metadata, stories=stories, subjects=subjects,
+        split_data(metadata, stories=stories, subjects=None,
                    hemisphere=None, zscore_data=True,
                    mask=mask, roi=f'{roi}_noSRM', save_files=True)
