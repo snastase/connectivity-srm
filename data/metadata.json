@@ -1,189 +1,330 @@
 {
+  "21styear": {
+    "data": {
+      "sub-075": {
+        "hemi-lh": "data/sub-075_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-075_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-131": {
+        "hemi-lh": "data/sub-131_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-131_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-190": {
+        "hemi-lh": "data/sub-190_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-190_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-201": {
+        "hemi-lh": "data/sub-201_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-201_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-235": {
+        "hemi-lh": "data/sub-235_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-235_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-244": {
+        "hemi-lh": "data/sub-244_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-244_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-249": {
+        "hemi-lh": "data/sub-249_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-249_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-254": {
+        "hemi-lh": "data/sub-254_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-254_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-255": {
+        "hemi-lh": "data/sub-255_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-255_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-256": {
+        "hemi-lh": "data/sub-256_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-256_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-257": {
+        "hemi-lh": "data/sub-257_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-257_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-258": {
+        "hemi-lh": "data/sub-258_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-258_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-259": {
+        "hemi-lh": "data/sub-259_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-259_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-260": {
+        "hemi-lh": "data/sub-260_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-260_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-261": {
+        "hemi-lh": "data/sub-261_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-261_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-262": {
+        "hemi-lh": "data/sub-262_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-262_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-263": {
+        "hemi-lh": "data/sub-263_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-263_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-264": {
+        "hemi-lh": "data/sub-264_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-264_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-265": {
+        "hemi-lh": "data/sub-265_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-265_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-266": {
+        "hemi-lh": "data/sub-266_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-266_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-267": {
+        "hemi-lh": "data/sub-267_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-267_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-268": {
+        "hemi-lh": "data/sub-268_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-268_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-269": {
+        "hemi-lh": "data/sub-269_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-269_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-270": {
+        "hemi-lh": "data/sub-270_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-270_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-271": {
+        "hemi-lh": "data/sub-271_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-271_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-272": {
+        "hemi-lh": "data/sub-272_task-21styear_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-272_task-21styear_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      }
+    },
+    "data_trims": [
+      14,
+      10
+    ],
+    "n_TRs": 2249
+  },
   "black": {
     "data": {
-      "sub-01": {
-        "lh": "data/sub-01_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-01_task-black.fsaverage6.rh.tproject.gii"
+      "sub-127": {
+        "lh": "data/sub-127_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-127_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-02": {
-        "lh": "data/sub-02_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-02_task-black.fsaverage6.rh.tproject.gii"
+      "sub-266": {
+        "lh": "data/sub-266_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-266_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-03": {
-        "lh": "data/sub-03_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-03_task-black.fsaverage6.rh.tproject.gii"
+      "sub-268": {
+        "lh": "data/sub-268_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-268_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-04": {
-        "lh": "data/sub-04_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-04_task-black.fsaverage6.rh.tproject.gii"
+      "sub-275": {
+        "lh": "data/sub-275_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-275_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-05": {
-        "lh": "data/sub-05_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-05_task-black.fsaverage6.rh.tproject.gii"
+      "sub-276": {
+        "lh": "data/sub-276_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-276_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-06": {
-        "lh": "data/sub-06_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-06_task-black.fsaverage6.rh.tproject.gii"
+      "sub-277": {
+        "lh": "data/sub-277_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-277_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-08": {
-        "lh": "data/sub-08_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-08_task-black.fsaverage6.rh.tproject.gii"
+      "sub-278": {
+        "lh": "data/sub-278_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-278_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-09": {
-        "lh": "data/sub-09_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-09_task-black.fsaverage6.rh.tproject.gii"
+      "sub-279": {
+        "lh": "data/sub-279_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-279_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-10": {
-        "lh": "data/sub-10_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-10_task-black.fsaverage6.rh.tproject.gii"
+      "sub-283": {
+        "lh": "data/sub-283_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-283_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-11": {
-        "lh": "data/sub-11_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-11_task-black.fsaverage6.rh.tproject.gii"
+      "sub-285": {
+        "lh": "data/sub-285_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-285_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-12": {
-        "lh": "data/sub-12_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-12_task-black.fsaverage6.rh.tproject.gii"
+      "sub-286": {
+        "lh": "data/sub-286_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-286_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-13": {
-        "lh": "data/sub-13_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-13_task-black.fsaverage6.rh.tproject.gii"
+      "sub-287": {
+        "lh": "data/sub-287_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-287_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-14": {
-        "lh": "data/sub-14_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-14_task-black.fsaverage6.rh.tproject.gii"
+      "sub-288": {
+        "lh": "data/sub-288_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-288_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-15": {
-        "lh": "data/sub-15_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-15_task-black.fsaverage6.rh.tproject.gii"
+      "sub-289": {
+        "lh": "data/sub-289_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-289_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-16": {
-        "lh": "data/sub-16_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-16_task-black.fsaverage6.rh.tproject.gii"
+      "sub-290": {
+        "lh": "data/sub-290_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-290_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-17": {
-        "lh": "data/sub-17_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-17_task-black.fsaverage6.rh.tproject.gii"
+      "sub-291": {
+        "lh": "data/sub-291_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-291_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-18": {
-        "lh": "data/sub-18_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-18_task-black.fsaverage6.rh.tproject.gii"
+      "sub-292": {
+        "lh": "data/sub-292_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-292_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-19": {
-        "lh": "data/sub-19_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-19_task-black.fsaverage6.rh.tproject.gii"
+      "sub-293": {
+        "lh": "data/sub-293_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-293_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-20": {
-        "lh": "data/sub-20_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-20_task-black.fsaverage6.rh.tproject.gii"
+      "sub-294": {
+        "lh": "data/sub-294_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-294_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-21": {
-        "lh": "data/sub-21_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-21_task-black.fsaverage6.rh.tproject.gii"
+      "sub-295": {
+        "lh": "data/sub-295_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-295_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-22": {
-        "lh": "data/sub-22_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-22_task-black.fsaverage6.rh.tproject.gii"
+      "sub-296": {
+        "lh": "data/sub-296_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-296_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-23": {
-        "lh": "data/sub-23_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-23_task-black.fsaverage6.rh.tproject.gii"
+      "sub-297": {
+        "lh": "data/sub-297_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-297_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-24": {
-        "lh": "data/sub-24_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-24_task-black.fsaverage6.rh.tproject.gii"
+      "sub-298": {
+        "lh": "data/sub-298_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-298_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-25": {
-        "lh": "data/sub-25_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-25_task-black.fsaverage6.rh.tproject.gii"
+      "sub-302": {
+        "lh": "data/sub-302_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-302_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-26": {
-        "lh": "data/sub-26_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-26_task-black.fsaverage6.rh.tproject.gii"
+      "sub-303": {
+        "lh": "data/sub-303_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-303_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-28": {
-        "lh": "data/sub-28_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-28_task-black.fsaverage6.rh.tproject.gii"
+      "sub-304": {
+        "lh": "data/sub-304_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-304_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-29": {
-        "lh": "data/sub-29_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-29_task-black.fsaverage6.rh.tproject.gii"
+      "sub-305": {
+        "lh": "data/sub-305_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-305_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-30": {
-        "lh": "data/sub-30_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-30_task-black.fsaverage6.rh.tproject.gii"
+      "sub-307": {
+        "lh": "data/sub-307_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-307_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-31": {
-        "lh": "data/sub-31_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-31_task-black.fsaverage6.rh.tproject.gii"
+      "sub-308": {
+        "lh": "data/sub-308_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-308_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-32": {
-        "lh": "data/sub-32_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-32_task-black.fsaverage6.rh.tproject.gii"
+      "sub-309": {
+        "lh": "data/sub-309_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-309_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-33": {
-        "lh": "data/sub-33_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-33_task-black.fsaverage6.rh.tproject.gii"
+      "sub-310": {
+        "lh": "data/sub-310_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-310_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-34": {
-        "lh": "data/sub-34_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-34_task-black.fsaverage6.rh.tproject.gii"
+      "sub-311": {
+        "lh": "data/sub-311_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-311_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-35": {
-        "lh": "data/sub-35_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-35_task-black.fsaverage6.rh.tproject.gii"
+      "sub-312": {
+        "lh": "data/sub-312_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-312_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-36": {
-        "lh": "data/sub-36_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-36_task-black.fsaverage6.rh.tproject.gii"
+      "sub-313": {
+        "lh": "data/sub-313_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-313_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-37": {
-        "lh": "data/sub-37_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-37_task-black.fsaverage6.rh.tproject.gii"
+      "sub-314": {
+        "lh": "data/sub-314_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-314_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-38": {
-        "lh": "data/sub-38_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-38_task-black.fsaverage6.rh.tproject.gii"
+      "sub-315": {
+        "lh": "data/sub-315_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-315_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-39": {
-        "lh": "data/sub-39_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-39_task-black.fsaverage6.rh.tproject.gii"
+      "sub-316": {
+        "lh": "data/sub-316_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-316_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-40": {
-        "lh": "data/sub-40_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-40_task-black.fsaverage6.rh.tproject.gii"
+      "sub-317": {
+        "lh": "data/sub-317_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-317_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-41": {
-        "lh": "data/sub-41_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-41_task-black.fsaverage6.rh.tproject.gii"
+      "sub-318": {
+        "lh": "data/sub-318_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-318_task-black.fsaverage6.rh.tproject.gii"
       },
-      "sub-42": {
-        "lh": "data/sub-42_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-42_task-black.fsaverage6.rh.tproject.gii"
-      },
-      "sub-43": {
-        "lh": "data/sub-43_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-43_task-black.fsaverage6.rh.tproject.gii"
-      },
-      "sub-44": {
-        "lh": "data/sub-44_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-44_task-black.fsaverage6.rh.tproject.gii"
-      },
-      "sub-45": {
-        "lh": "data/sub-45_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-45_task-black.fsaverage6.rh.tproject.gii"
-      },
-      "sub-46": {
-        "lh": "data/sub-46_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-46_task-black.fsaverage6.rh.tproject.gii"
-      },
-      "sub-47": {
-        "lh": "data/sub-47_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-47_task-black.fsaverage6.rh.tproject.gii"
-      },
-      "sub-48": {
-        "lh": "data/sub-48_task-black.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-48_task-black.fsaverage6.rh.tproject.gii"
+      "sub-319": {
+        "lh": "data/sub-319_task-black.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-319_task-black.fsaverage6.rh.tproject.gii"
       }
     },
     "data_trims": [
@@ -199,191 +340,337 @@
     "stimulus_duration": 800,
     "timestamps": "transcripts/black_timestamps.txt"
   },
+  "bronx (PNI)": {
+    "data": {
+      "sub-127": {
+        "lh": "data/sub-127_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-127_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-266": {
+        "lh": "data/sub-266_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-266_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-268": {
+        "lh": "data/sub-268_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-268_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-275": {
+        "lh": "data/sub-275_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-275_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-276": {
+        "lh": "data/sub-276_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-276_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-277": {
+        "lh": "data/sub-277_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-277_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-278": {
+        "lh": "data/sub-278_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-278_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-279": {
+        "lh": "data/sub-279_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-279_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-283": {
+        "lh": "data/sub-283_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-283_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-285": {
+        "lh": "data/sub-285_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-285_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-286": {
+        "lh": "data/sub-286_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-286_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-287": {
+        "lh": "data/sub-287_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-287_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-288": {
+        "lh": "data/sub-288_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-288_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-289": {
+        "lh": "data/sub-289_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-289_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-290": {
+        "lh": "data/sub-290_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-290_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-291": {
+        "lh": "data/sub-291_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-291_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-292": {
+        "lh": "data/sub-292_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-292_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-293": {
+        "lh": "data/sub-293_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-293_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-294": {
+        "lh": "data/sub-294_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-294_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-295": {
+        "lh": "data/sub-295_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-295_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-296": {
+        "lh": "data/sub-296_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-296_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-297": {
+        "lh": "data/sub-297_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-297_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-298": {
+        "lh": "data/sub-298_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-298_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-302": {
+        "lh": "data/sub-302_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-302_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-303": {
+        "lh": "data/sub-303_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-303_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-304": {
+        "lh": "data/sub-304_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-304_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-305": {
+        "lh": "data/sub-305_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-305_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-307": {
+        "lh": "data/sub-307_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-307_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-308": {
+        "lh": "data/sub-308_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-308_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-309": {
+        "lh": "data/sub-309_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-309_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-310": {
+        "lh": "data/sub-310_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-310_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-311": {
+        "lh": "data/sub-311_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-311_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-312": {
+        "lh": "data/sub-312_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-312_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-313": {
+        "lh": "data/sub-313_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-313_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-314": {
+        "lh": "data/sub-314_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-314_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-315": {
+        "lh": "data/sub-315_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-315_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-316": {
+        "lh": "data/sub-316_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-316_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-317": {
+        "lh": "data/sub-317_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-317_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-318": {
+        "lh": "data/sub-318_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-318_task-bronx.fsaverage6.rh.tproject.gii"
+      },
+      "sub-319": {
+        "lh": "data/sub-319_task-bronx.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-319_task-bronx.fsaverage6.rh.tproject.gii"
+      }
+    },
+    "data_trims": [
+      8,
+      8
+    ],
+    "n_TRs": 390,
+    "stimulus_duration": 374
+  },
   "forgot": {
     "data": {
-      "sub-01": {
-        "lh": "data/sub-01_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-01_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-127": {
+        "lh": "data/sub-127_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-127_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-02": {
-        "lh": "data/sub-02_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-02_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-266": {
+        "lh": "data/sub-266_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-266_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-03": {
-        "lh": "data/sub-03_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-03_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-268": {
+        "lh": "data/sub-268_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-268_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-04": {
-        "lh": "data/sub-04_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-04_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-275": {
+        "lh": "data/sub-275_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-275_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-05": {
-        "lh": "data/sub-05_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-05_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-276": {
+        "lh": "data/sub-276_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-276_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-06": {
-        "lh": "data/sub-06_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-06_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-277": {
+        "lh": "data/sub-277_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-277_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-08": {
-        "lh": "data/sub-08_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-08_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-278": {
+        "lh": "data/sub-278_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-278_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-09": {
-        "lh": "data/sub-09_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-09_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-279": {
+        "lh": "data/sub-279_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-279_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-10": {
-        "lh": "data/sub-10_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-10_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-283": {
+        "lh": "data/sub-283_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-283_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-11": {
-        "lh": "data/sub-11_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-11_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-285": {
+        "lh": "data/sub-285_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-285_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-12": {
-        "lh": "data/sub-12_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-12_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-286": {
+        "lh": "data/sub-286_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-286_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-13": {
-        "lh": "data/sub-13_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-13_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-287": {
+        "lh": "data/sub-287_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-287_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-14": {
-        "lh": "data/sub-14_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-14_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-288": {
+        "lh": "data/sub-288_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-288_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-15": {
-        "lh": "data/sub-15_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-15_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-289": {
+        "lh": "data/sub-289_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-289_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-16": {
-        "lh": "data/sub-16_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-16_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-290": {
+        "lh": "data/sub-290_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-290_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-17": {
-        "lh": "data/sub-17_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-17_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-291": {
+        "lh": "data/sub-291_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-291_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-18": {
-        "lh": "data/sub-18_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-18_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-292": {
+        "lh": "data/sub-292_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-292_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-19": {
-        "lh": "data/sub-19_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-19_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-293": {
+        "lh": "data/sub-293_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-293_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-20": {
-        "lh": "data/sub-20_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-20_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-294": {
+        "lh": "data/sub-294_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-294_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-21": {
-        "lh": "data/sub-21_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-21_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-295": {
+        "lh": "data/sub-295_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-295_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-22": {
-        "lh": "data/sub-22_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-22_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-296": {
+        "lh": "data/sub-296_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-296_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-23": {
-        "lh": "data/sub-23_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-23_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-297": {
+        "lh": "data/sub-297_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-297_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-24": {
-        "lh": "data/sub-24_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-24_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-298": {
+        "lh": "data/sub-298_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-298_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-25": {
-        "lh": "data/sub-25_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-25_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-302": {
+        "lh": "data/sub-302_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-302_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-26": {
-        "lh": "data/sub-26_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-26_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-303": {
+        "lh": "data/sub-303_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-303_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-28": {
-        "lh": "data/sub-28_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-28_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-304": {
+        "lh": "data/sub-304_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-304_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-29": {
-        "lh": "data/sub-29_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-29_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-305": {
+        "lh": "data/sub-305_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-305_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-30": {
-        "lh": "data/sub-30_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-30_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-307": {
+        "lh": "data/sub-307_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-307_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-31": {
-        "lh": "data/sub-31_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-31_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-308": {
+        "lh": "data/sub-308_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-308_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-32": {
-        "lh": "data/sub-32_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-32_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-309": {
+        "lh": "data/sub-309_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-309_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-33": {
-        "lh": "data/sub-33_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-33_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-310": {
+        "lh": "data/sub-310_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-310_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-34": {
-        "lh": "data/sub-34_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-34_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-311": {
+        "lh": "data/sub-311_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-311_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-35": {
-        "lh": "data/sub-35_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-35_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-312": {
+        "lh": "data/sub-312_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-312_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-36": {
-        "lh": "data/sub-36_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-36_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-313": {
+        "lh": "data/sub-313_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-313_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-37": {
-        "lh": "data/sub-37_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-37_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-314": {
+        "lh": "data/sub-314_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-314_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-38": {
-        "lh": "data/sub-38_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-38_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-315": {
+        "lh": "data/sub-315_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-315_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-39": {
-        "lh": "data/sub-39_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-39_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-316": {
+        "lh": "data/sub-316_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-316_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-40": {
-        "lh": "data/sub-40_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-40_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-317": {
+        "lh": "data/sub-317_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-317_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-41": {
-        "lh": "data/sub-41_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-41_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-318": {
+        "lh": "data/sub-318_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-318_task-forgot.fsaverage6.rh.tproject.gii"
       },
-      "sub-42": {
-        "lh": "data/sub-42_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-42_task-forgot.fsaverage6.rh.tproject.gii"
-      },
-      "sub-43": {
-        "lh": "data/sub-43_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-43_task-forgot.fsaverage6.rh.tproject.gii"
-      },
-      "sub-44": {
-        "lh": "data/sub-44_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-44_task-forgot.fsaverage6.rh.tproject.gii"
-      },
-      "sub-45": {
-        "lh": "data/sub-45_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-45_task-forgot.fsaverage6.rh.tproject.gii"
-      },
-      "sub-46": {
-        "lh": "data/sub-46_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-46_task-forgot.fsaverage6.rh.tproject.gii"
-      },
-      "sub-47": {
-        "lh": "data/sub-47_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-47_task-forgot.fsaverage6.rh.tproject.gii"
-      },
-      "sub-48": {
-        "lh": "data/sub-48_task-forgot.fsaverage6.lh.tproject.gii",
-        "rh": "data/sub-48_task-forgot.fsaverage6.rh.tproject.gii"
+      "sub-319": {
+        "lh": "data/sub-319_task-forgot.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-319_task-forgot.fsaverage6.rh.tproject.gii"
       }
     },
     "data_trims": [
@@ -398,5 +685,909 @@
     "n_TRs": 574,
     "stimulus_duration": 837,
     "timestamps": "transcripts/forgot_timestamps.txt"
+  },
+  "milkyway": {
+    "data": {
+      "sub-034": {
+        "hemi-lh": "data/sub-034_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-034_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-081": {
+        "hemi-lh": "data/sub-081_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-081_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-083": {
+        "hemi-lh": "data/sub-083_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-083_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-091": {
+        "hemi-lh": "data/sub-091_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-091_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-093": {
+        "hemi-lh": "data/sub-093_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-093_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-095": {
+        "hemi-lh": "data/sub-095_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-095_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-096": {
+        "hemi-lh": "data/sub-096_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-096_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-099": {
+        "hemi-lh": "data/sub-099_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-099_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-100": {
+        "hemi-lh": "data/sub-100_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-100_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-101": {
+        "hemi-lh": "data/sub-101_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-101_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-104": {
+        "hemi-lh": "data/sub-104_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-104_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-106": {
+        "hemi-lh": "data/sub-106_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-106_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-108": {
+        "hemi-lh": "data/sub-108_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-108_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-111": {
+        "hemi-lh": "data/sub-111_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-111_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-112": {
+        "hemi-lh": "data/sub-112_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-112_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-114": {
+        "hemi-lh": "data/sub-114_task-milkyway_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-114_task-milkyway_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      }
+    },
+    "data_trims": [
+      14,
+      10
+    ],
+    "n_TRs": 297,
+    "stimulus_duration": 292
+  },
+  "notthefall": {
+    "data": {
+      "sub-016": {
+        "hemi-lh": "data/sub-016_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-016_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-065": {
+        "hemi-lh": "data/sub-065_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-065_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-084": {
+        "hemi-lh": "data/sub-084_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-084_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-106": {
+        "hemi-lh": "data/sub-106_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-106_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-111": {
+        "hemi-lh": "data/sub-111_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-111_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-132": {
+        "hemi-lh": "data/sub-132_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-132_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-133": {
+        "hemi-lh": "data/sub-133_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-133_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-134": {
+        "hemi-lh": "data/sub-134_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-134_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-135": {
+        "hemi-lh": "data/sub-135_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-135_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-136": {
+        "hemi-lh": "data/sub-136_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-136_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-137": {
+        "hemi-lh": "data/sub-137_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-137_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-139": {
+        "hemi-lh": "data/sub-139_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-139_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-140": {
+        "hemi-lh": "data/sub-140_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-140_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-141": {
+        "hemi-lh": "data/sub-141_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-141_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-142": {
+        "hemi-lh": "data/sub-142_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-142_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-143": {
+        "hemi-lh": "data/sub-143_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-143_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-144": {
+        "hemi-lh": "data/sub-144_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-144_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-145": {
+        "hemi-lh": "data/sub-145_task-notthefall_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-145_task-notthefall_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      }
+    },
+    "data_trims": [
+      2,
+      8
+    ],
+    "n_TRs": 400
+  },
+  "pieman": {
+    "data": {
+      "sub-003": {
+        "hemi-lh": "data/sub-003_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-003_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-017": {
+        "hemi-lh": "data/sub-017_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-017_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-018": {
+        "hemi-lh": "data/sub-018_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-018_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-019": {
+        "hemi-lh": "data/sub-019_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-019_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-020": {
+        "hemi-lh": "data/sub-020_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-020_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-023": {
+        "hemi-lh": "data/sub-023_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-023_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-024": {
+        "hemi-lh": "data/sub-024_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-024_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-025": {
+        "hemi-lh": "data/sub-025_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-025_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-027": {
+        "hemi-lh": "data/sub-027_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-027_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-028": {
+        "hemi-lh": "data/sub-028_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-028_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-029": {
+        "hemi-lh": "data/sub-029_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-029_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-030": {
+        "hemi-lh": "data/sub-030_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-030_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-031": {
+        "hemi-lh": "data/sub-031_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-031_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-032": {
+        "hemi-lh": "data/sub-032_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-032_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-033": {
+        "hemi-lh": "data/sub-033_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-033_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-034": {
+        "hemi-lh": "data/sub-034_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-034_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-035": {
+        "hemi-lh": "data/sub-035_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-035_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-036": {
+        "hemi-lh": "data/sub-036_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-036_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-037": {
+        "hemi-lh": "data/sub-037_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-037_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-039": {
+        "hemi-lh": "data/sub-039_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-039_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-040": {
+        "hemi-lh": "data/sub-040_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-040_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-041": {
+        "hemi-lh": "data/sub-041_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-041_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-042": {
+        "hemi-lh": "data/sub-042_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-042_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-043": {
+        "hemi-lh": "data/sub-043_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-043_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-044": {
+        "hemi-lh": "data/sub-044_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-044_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-045": {
+        "hemi-lh": "data/sub-045_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-045_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-047": {
+        "hemi-lh": "data/sub-047_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-047_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-048": {
+        "hemi-lh": "data/sub-048_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-048_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-049": {
+        "hemi-lh": "data/sub-049_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-049_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-050": {
+        "hemi-lh": "data/sub-050_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-050_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-051": {
+        "hemi-lh": "data/sub-051_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-051_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-052": {
+        "hemi-lh": "data/sub-052_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-052_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-054": {
+        "hemi-lh": "data/sub-054_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-054_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-067": {
+        "hemi-lh": "data/sub-067_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-067_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-070": {
+        "hemi-lh": "data/sub-070_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-070_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-071": {
+        "hemi-lh": "data/sub-071_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-071_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-072": {
+        "hemi-lh": "data/sub-072_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-072_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-074": {
+        "hemi-lh": "data/sub-074_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-074_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-075": {
+        "hemi-lh": "data/sub-075_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-075_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-076": {
+        "hemi-lh": "data/sub-076_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-076_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-077": {
+        "hemi-lh": "data/sub-077_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-077_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-078": {
+        "hemi-lh": "data/sub-078_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-078_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-079": {
+        "hemi-lh": "data/sub-079_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-079_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-080": {
+        "hemi-lh": "data/sub-080_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-080_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-081": {
+        "hemi-lh": "data/sub-081_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-081_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-082": {
+        "hemi-lh": "data/sub-082_task-pieman_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-082_task-pieman_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      }
+    },
+    "data_trims": [
+      10,
+      8
+    ],
+    "n_TRs": 300,
+    "stimulus_duration": 450
+  },
+  "pieman (PNI)": {
+    "data": {
+      "sub-127": {
+        "lh": "data/sub-127_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-127_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-266": {
+        "lh": "data/sub-266_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-266_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-268": {
+        "lh": "data/sub-268_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-268_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-275": {
+        "lh": "data/sub-275_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-275_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-276": {
+        "lh": "data/sub-276_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-276_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-277": {
+        "lh": "data/sub-277_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-277_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-278": {
+        "lh": "data/sub-278_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-278_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-279": {
+        "lh": "data/sub-279_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-279_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-285": {
+        "lh": "data/sub-285_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-285_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-286": {
+        "lh": "data/sub-286_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-286_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-287": {
+        "lh": "data/sub-287_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-287_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-288": {
+        "lh": "data/sub-288_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-288_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-289": {
+        "lh": "data/sub-289_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-289_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-290": {
+        "lh": "data/sub-290_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-290_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-291": {
+        "lh": "data/sub-291_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-291_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-292": {
+        "lh": "data/sub-292_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-292_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-293": {
+        "lh": "data/sub-293_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-293_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-294": {
+        "lh": "data/sub-294_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-294_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-295": {
+        "lh": "data/sub-295_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-295_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-296": {
+        "lh": "data/sub-296_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-296_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-297": {
+        "lh": "data/sub-297_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-297_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-298": {
+        "lh": "data/sub-298_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-298_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-302": {
+        "lh": "data/sub-302_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-302_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-303": {
+        "lh": "data/sub-303_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-303_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-304": {
+        "lh": "data/sub-304_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-304_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-305": {
+        "lh": "data/sub-305_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-305_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-307": {
+        "lh": "data/sub-307_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-307_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-308": {
+        "lh": "data/sub-308_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-308_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-309": {
+        "lh": "data/sub-309_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-309_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-310": {
+        "lh": "data/sub-310_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-310_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-311": {
+        "lh": "data/sub-311_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-311_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-312": {
+        "lh": "data/sub-312_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-312_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-313": {
+        "lh": "data/sub-313_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-313_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-314": {
+        "lh": "data/sub-314_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-314_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-315": {
+        "lh": "data/sub-315_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-315_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-316": {
+        "lh": "data/sub-316_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-316_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-317": {
+        "lh": "data/sub-317_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-317_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-318": {
+        "lh": "data/sub-318_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-318_task-piemanpni.fsaverage6.rh.tproject.gii"
+      },
+      "sub-319": {
+        "lh": "data/sub-319_task-piemanpni.fsaverage6.lh.tproject.gii",
+        "rh": "data/sub-319_task-piemanpni.fsaverage6.rh.tproject.gii"
+      }
+    },
+    "data_trims": [
+      8,
+      8
+    ],
+    "n_TRs": 294,
+    "stimulus_duration": 278
+  },
+  "prettymouth": {
+    "data": {
+      "sub-023": {
+        "hemi-lh": "data/sub-023_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-023_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-032": {
+        "hemi-lh": "data/sub-032_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-032_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-034": {
+        "hemi-lh": "data/sub-034_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-034_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-050": {
+        "hemi-lh": "data/sub-050_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-050_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-083": {
+        "hemi-lh": "data/sub-083_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-083_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-084": {
+        "hemi-lh": "data/sub-084_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-084_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-085": {
+        "hemi-lh": "data/sub-085_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-085_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-086": {
+        "hemi-lh": "data/sub-086_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-086_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-087": {
+        "hemi-lh": "data/sub-087_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-087_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-088": {
+        "hemi-lh": "data/sub-088_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-088_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-089": {
+        "hemi-lh": "data/sub-089_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-089_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-090": {
+        "hemi-lh": "data/sub-090_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-090_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-091": {
+        "hemi-lh": "data/sub-091_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-091_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-092": {
+        "hemi-lh": "data/sub-092_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-092_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-093": {
+        "hemi-lh": "data/sub-093_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-093_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-094": {
+        "hemi-lh": "data/sub-094_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-094_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-095": {
+        "hemi-lh": "data/sub-095_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-095_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-096": {
+        "hemi-lh": "data/sub-096_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-096_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-097": {
+        "hemi-lh": "data/sub-097_task-prettymouth_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-097_task-prettymouth_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      }
+    },
+    "data_trims": [
+      14,
+      10
+    ],
+    "n_TRs": 451,
+    "stimulus_duration": 712
+  },
+  "slumlordreach": {
+    "data": {
+      "sub-016": {
+        "hemi-lh": "data/sub-016_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-016_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-084": {
+        "hemi-lh": "data/sub-084_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-084_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-106": {
+        "hemi-lh": "data/sub-106_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-106_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-111": {
+        "hemi-lh": "data/sub-111_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-111_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-133": {
+        "hemi-lh": "data/sub-133_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-133_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-134": {
+        "hemi-lh": "data/sub-134_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-134_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-135": {
+        "hemi-lh": "data/sub-135_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-135_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-136": {
+        "hemi-lh": "data/sub-136_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-136_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-137": {
+        "hemi-lh": "data/sub-137_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-137_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-138": {
+        "hemi-lh": "data/sub-138_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-138_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-140": {
+        "hemi-lh": "data/sub-140_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-140_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-141": {
+        "hemi-lh": "data/sub-141_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-141_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-142": {
+        "hemi-lh": "data/sub-142_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-142_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-143": {
+        "hemi-lh": "data/sub-143_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-143_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-144": {
+        "hemi-lh": "data/sub-144_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-144_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      },
+      "sub-145": {
+        "hemi-lh": "data/sub-145_task-slumlordreach_space-fsaverage6_hemi-lh.tproject.gii",
+        "hemi-rh": "data/sub-145_task-slumlordreach_space-fsaverage6_hemi-rh.tproject.gii",
+        "lh": {},
+        "rh": {}
+      }
+    },
+    "data_trims": [
+      20,
+      8
+    ],
+    "n_TRs": 1210
   }
 }
