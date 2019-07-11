@@ -9,14 +9,14 @@ metadata = {'pieman':
                'data_trims': [10, 8]},
             'prettymouth':
               {'stimulus_duration': 712,
-               'n_TRs': 451,
+               'n_TRs': 475,
                'data_trims': [14, 10]},
             'milkyway':
               {'stimulus_duration': 292,
                'n_TRs': 297,
                'data_trims': [14, 10]},
             'slumlordreach':
-              {'n_TRs': 1210,
+              {'n_TRs': 1205,
                'data_trims': [20, 8]},
             'notthefall':
               {'n_TRs': 400,
@@ -67,7 +67,7 @@ for story in stories:
         split_fn = basename(data_fn).split('_')
         sub = split_fn[0]
         subjects[story].append(sub)
-        hemi = split_fn[-1].split('.')[-3]
+        hemi = split_fn[-1].split('hemi-')[1][:2]
 
         if 'data' not in metadata[story]:
             metadata[story]['data'] = {}
