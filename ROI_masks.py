@@ -8,7 +8,7 @@ hemi = 'rh'
 mmp = read_gifti(f'data/MMP_fsaverage6.{hemi}.gii')[0]
 
 # Load in ROI labels
-with open('MMP_ROIs.json') as f:
+with open('data/MMP_ROIs.json') as f:
     rois = json.load(f)
 
 roi_colors = {'EAC': rois['EAC']['A1'],
