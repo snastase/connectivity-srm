@@ -210,7 +210,7 @@ def check_keys(data, keys=None, subkey=None):
     else:
         raise KeyError(f"Unrecognized keys: {keys}")
 
-    return keys
+    return list(keys)
 
 
 # Name guard for when we actually want to split all data
