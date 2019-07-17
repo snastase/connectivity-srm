@@ -175,10 +175,12 @@ def load_split_data(metadata, stories=None, subjects=None,
                     half_fn = (f'data/{subject}_task-{story}_'
                                f'half-{half}_{hemi}.npy')
 
-                assert exists(half_fn)
+                if not exists(half_fn):
+                    print(f"Couldn't find {half_fn}!!!")
+                    pass
 
                 # Load files
-                half_data = np.load(half_fn)
+                half_data = np.load(half_fn, allow_pickle=True)
 
                 if mask:
                     half_data = half_data[:, mask[hemi]]
@@ -230,10 +232,6 @@ if __name__ == '__main__':
                save_files=True)
 
     # Split data into ROIs   
-    stories = ['pieman', 'prettymouth', 'milkyway',
-               'slumlordreach', 'notthefall', '21styear',
-               'pieman (PNI)', 'bronx (PNI)', 'black', 'forgot']
-
     rois = ['EAC', 'AAC', 'TPOJ', 'PMC']
     for roi in rois:
         mask_lh = np.load(f'data/{roi}_mask_lh.npy').astype(bool)
