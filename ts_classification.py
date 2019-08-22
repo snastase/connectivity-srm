@@ -116,33 +116,33 @@ def stack_subjects(data, subjects=None, hemisphere='lh'):
 if __name__ == '__main__':
 
     # Load dictionary of input filenames and parameters
-    with open('metadata.json') as f:
+    with open('data/metadata.json') as f:
         metadata = json.load(f)
 
     # Create story and subject lists
-    stories = ['black', 'forgot']
-    exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
-    subject_list = [f'sub-{i:02}' for i in range(1, 49)
-                    if i not in exclude]
-    subjects = {story: subject_list for story in stories}
+    stories = ['pieman', 'prettymouth', 'milkyway',
+               'slumlordreach', 'notthefall', '21styear',
+               'pieman (PNI)', 'bronx (PNI)', 'black', 'forgot']
 
     # Parameters for time-segment classification
     segment_length = 10
     average = False
 
-    # Set ROIs, spaces, and hemispheres
-    rois = ['EAC', 'AAC', 'TPOJ', 'PMC']    
+    rois = ['EAC', 'AAC', 'TPOJ', 'PMC']
     prefixes = [('no SRM', 'noSRM'),
-                ('cSRM (k = 300)', 'k-300_cSRM-test'),
-                ('cSRM (k = 100)', 'k-100_cSRM-test'),
-                ('cSRM (k = 50)', 'k-50_cSRM-test'),
-                ('cSRM (k = 10)', 'k-10_cSRM-test')]
+                ('no SRM (average)', 'noSRM'),
+                ('cSRM (k = 100)', 'parcel-mean_k-100_cSRM-test'),
+                ('cSRM (k = 50)', 'parcel-mean_k-50_cSRM-test'),
+                ('cSRM (k = 10)', 'parcel-mean_k-10_cSRM-test'),
+                ('cPCA (k = 100)', 'parcel-mean_k-100_cPCA-test'),
+                ('cPCA (k = 50)', 'parcel-mean_k-50_cPCA-test'),
+                ('cPCA (k = 10)', 'parcel-mean_k-10_cPCA-test')]
     hemis = ['lh', 'rh']
 
     # Load in results file if it already exists
     results_fn = f'data/ts_classification_st{segment_length}_results.npy'
     if exists(results_fn):
-        results = np.load(results_fn).item()
+        results = np.load(results_fn, allow_pickle=True).item()
     else:
         results = {}
 
@@ -158,6 +158,9 @@ if __name__ == '__main__':
             for prefix in prefixes:
                 if prefix[0] not in results[story][roi]:
                     results[story][roi][prefix[0]] = {}
+                    
+                if prefix[0][:4] == 'tSRM':
+                    prefix = prefix[0], prefix[1][:-4] + f'{story}-test'
 
                 for hemi in hemis:
                     if hemi not in results[story][roi][prefix[0]]:
@@ -165,14 +168,19 @@ if __name__ == '__main__':
 
                         # Load in either raw data with mask or SRM ROI data
                         data = load_split_data(metadata, stories=story,
-                                               subjects=subjects,
+                                               subjects=None,
                                                hemisphere=hemi,
                                                half=2, prefix=f'{roi}_' + prefix[1])
 
                         # Depth-stack subjects
                         subject_stack = stack_subjects(data[story],
-                                                       subjects=subjects[story],
+                                                       subjects=None,
                                                        hemisphere=hemi)
+                        
+                        # Get the regional average as well
+                        if prefix[0] == 'no SRM (average)':
+                            subject_stack = np.expand_dims(np.mean(subject_stack,
+                                                               axis=1), 1)
 
                         # Compute paired time-segment correlations
                         correlations = time_segment_correlation(subject_stack,
@@ -191,16 +199,25 @@ if __name__ == '__main__':
 
 
     # Compute temporal and spatial intersubject coorrelations
-    isc_type = 'temporal'
+    isc_type = 'spatial'
+    
+    prefixes = [('no SRM', 'noSRM'),
+                ('no SRM (average)', 'noSRM'),
+                ('cPCA (k = 100)', 'parcel-mean_k-100_cPCA-test'),
+                ('cSRM (k = 100)', 'parcel-mean_k-100_cSRM-test'),
+                ('cPCA (k = 50)', 'parcel-mean_k-50_cPCA-test'),
+                ('cSRM (k = 50)', 'parcel-mean_k-50_cSRM-test'),
+                ('cPCA (k = 10)', 'parcel-mean_k-10_cPCA-test'),
+                ('cSRM (k = 10)', 'parcel-mean_k-10_cSRM-test')]
 
-    results_fn = f'data/{isc_type}_isc_no-mean_results.npy'
+    results_fn = f'data/{isc_type}_isc_pca_results.npy'
     if exists(results_fn):
-        results = np.load(results_fn).item()
+        results = np.load(results_fn, allow_pickle=True).item()
     else:
         results = {}
 
     # Loop through keys without replacing existing ones
-    for story in stories:
+    for story in ['black', 'forgot']:
         if story not in results:
             results[story] = {}
 
@@ -218,23 +235,29 @@ if __name__ == '__main__':
 
                     # Load in either raw data with mask or SRM ROI data
                     data = load_split_data(metadata, stories=story,
-                                           subjects=subjects,
+                                           subjects=None,
                                            hemisphere=hemi,
                                            half=2, prefix=f'{roi}_' + prefix[1])
 
                     # Depth-stack subjects
                     subject_stack = stack_subjects(data[story],
-                                                   subjects=subjects[story],
+                                                   subjects=None,
                                                    hemisphere=hemi)
+                    
+                    # Get the regional average as well
+                    if prefix[0] == 'no SRM (average)':
+                        subject_stack = np.expand_dims(np.mean(subject_stack,
+                                                               axis=1), 1)
+                        
 
                     # Compute paired time-segment correlations
                     if isc_type == 'temporal':
                         iscs = isc(subject_stack)
                     elif isc_type == 'spatial':
-                        iscs = np.mean(isc(np.moveaxis(subject_stack, 1, 0)), axis=0)
+                        iscs = isc(np.moveaxis(subject_stack, 1, 0))
 
                     results[story][roi][prefix[0]][hemi] = iscs
-                    print(f"Finished computing ISCs for {story}, "
+                    print(f"Finished computing {isc_type} ISCs for {story}, "
                           f"{roi}, {prefix[0]}, {hemi}")
 
     np.save(results_fn, results)
