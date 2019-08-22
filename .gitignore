@@ -5,3 +5,6 @@ figures/
 .ipynb_checkpoints
 .DS_Store
 data_old/
+staging_data/
+data_orig/
+__pycache__
