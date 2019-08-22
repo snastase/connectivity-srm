@@ -2,6 +2,7 @@
 data/*.gii
 data/*.npy
 figures/
+transcripts/
 .ipynb_checkpoints
 .DS_Store
 data_old/
