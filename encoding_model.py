@@ -12,51 +12,68 @@ from brainiak.utils.utils import array_correlation
 
 
 # Function for selecting and aggregating subjects
-def aggregate_subjects(data, model, subject_list,
+def aggregate_subjects(datasets, models, story_list, subject_list,
                        hemi='lh',  aggregation='average'):
-
-    # Broadcast model if concatenating subjects
-    if aggregation == 'concatenate':
-        model = np.tile(model, (len(subject_list), 1))
-
+    
     # Allow for easy single subject input
-    if type(subject_list) == str:
-        subject = subject_list
-        data = data[subject][hemi]
+    if type(story_list) == str:
+        story_list = [story_list]
 
-    else:
-        if len(subject_list) == 1:
-            data = data[subject_list[0]][hemi]
+    # Loop through requested stories
+    data_stack, model_stack = [], []
+    for story in story_list:
+
+        # Broadcast model if concatenating subjects
+        if aggregation == 'concatenate':
+            model = np.tile(models[story], (len(subject_list), 1))
         else:
-            n_subjects = len(subject_list)
-            assert n_subjects > 1
+            model = models[story]
 
-            # Check subjects are in the data
-            for subject in subject_list:
-                assert subject in data.keys()
+        # Allow for easy single subject input
+        if type(subject_list) == str:
+            subject = subject_list
+            data = datasets[story][subject][hemi]
 
-            # Compile test subjects
-            data_list = []
-            for subject in subject_list:
-                data_list.append(data[subject][hemi])
+        else:
+            if len(subject_list) == 1:
+                data = datasets[story][subject_list[0]][hemi]
+            else:
+                n_subjects = len(subject_list)
+                assert n_subjects > 1
 
-            # Average time data across subjects
-            if aggregation == 'average' and n_subjects > 1:
-                data = np.mean(data_list, axis=0)
+                # Check subjects are in the data
+                for subject in subject_list:
+                    assert subject in datasets[story].keys()
 
-            elif aggregation == 'concatenate' and n_subjects > 1:
-                data = np.vstack(data_list)
+                # Compile test subjects
+                data_list = []
+                for subject in subject_list:
+                    data_list.append(datasets[story][subject][hemi])
 
-    if len(model) != len(data):
+                # Average time data across subjects
+                if aggregation == 'average' and n_subjects > 1:
+                    data = np.mean(data_list, axis=0)
+
+                elif aggregation == 'concatenate' and n_subjects > 1:
+                    data = np.vstack(data_list)
+                    
+        data_stack.append(data)
+        model_stack.append(model)
+        
+    # Stack for multiple stories
+    data_stack = np.vstack(data_stack)
+    model_stack = np.vstack(model_stack)
+
+    if len(model_stack) != len(data_stack):
         raise ValueError("Model and data have mismatching shape! "
-                         f"model: {model.shape}, data: {data.shape}")
+                         f"model: {model_stack.shape}, data: {data_stack.shape}")
 
-    return data, model
+    return data_stack, model_stack
 
 
 # Function to compute correlation-based rank accuracy
 def rank_accuracy(predicted_model, test_model, mean=True):
-    n_predictions = predicted_model.shape[0]
+    n_predictions = test_model.shape[0]
 
     # Get correlations between pairs
     correlations = 1 - cdist(predicted_model, test_model,
@@ -68,7 +85,7 @@ def rank_accuracy(predicted_model, test_model, mean=True):
         ranks.append(rankdata(correlations[index])[index])
 
     # Normalize ranks by number of choices
-    ranks = np.array(ranks) / n_predictions
+    ranks = (np.array(ranks) - 1) / (n_predictions - 1)
 
     if mean:
         ranks = np.mean(ranks)
@@ -123,39 +140,39 @@ def grid_search(train_model, train_data, alphas, scorer, n_splits=10):
 if __name__ == '__main__':
 
     # Load dictionary of input filenames and parameters
-    with open('metadata.json') as f:
+    with open('data/metadata.json') as f:
         metadata = json.load(f)
 
     # Create story and subject lists
     stories = ['black', 'forgot']
-    exclude = [6, 7, 9, 11, 12, 13, 26, 27, 28, 33]
-    subject_list = [f'sub-{i:02}' for i in range(1, 49)
-                    if i not in exclude]
-    subjects = {story: subject_list for story in stories}
-
+    
     # Set ROIs, spaces, and hemispheres
     rois = ['EAC', 'AAC', 'TPOJ', 'PMC']    
     prefixes = [('no SRM', 'noSRM', 'noSRM'),
+                ('no SRM (average)', 'noSRM', 'noSRM'),
                 ('no SRM (within-subject)', 'noSRM', 'noSRM'),
-                ('cSRM (k = 300)', 'k-300_cSRM-train', 'k-300_cSRM-test'),
-                ('cSRM (k = 100)', 'k-100_cSRM-train', 'k-100_cSRM-test'),
-                ('cSRM (k = 50)', 'k-50_cSRM-train', 'k-50_cSRM-test'),
-                ('cSRM (k = 10)', 'k-10_cSRM-train', 'k-10_cSRM-test')]
+                ('cPCA (k = 100)', 'parcel-mean_k-100_cPCA-train', 'parcel-mean_k-100_cPCA-test'),
+                ('cPCA (k = 50)', 'parcel-mean_k-50_cPCA-train', 'parcel-mean_k-50_cPCA-test'),
+                ('cPCA (k = 10)', 'parcel-mean_k-10_cPCA-train', 'parcel-mean_k-10_cPCA-test'),
+                ('cSRM (k = 100)', 'parcel-mean_k-100_cSRM-train', 'parcel-mean_k-100_cSRM-test'),
+                ('cSRM (k = 50)', 'parcel-mean_k-50_cSRM-train', 'parcel-mean_k-50_cSRM-test'),
+                ('cSRM (k = 10)', 'parcel-mean_k-10_cSRM-train', 'parcel-mean_k-10_cSRM-test')]
+    stories = ['black', 'forgot']
     hemis = ['lh', 'rh']
 
     # Set some parameters for encoding model
     delays = [2, 3, 4, 5]
     aggregation = 'average'
-    across_story = False
-    alpha = 100.
+    story_train = 'all'
+    alpha = 100
 
     # Make custom correlation scorer
     correlation_scorer = make_scorer(array_correlation)
 
     # Populate results file if it already exists
-    results_fn = 'data/encoding_within-story_avg_results.npy'
+    results_fn = f'data/encoding_{story_train}-story_avg_inv_results.npy'
     if exists(results_fn):
-        results = np.load(results_fn).item()
+        results = np.load(results_fn, allow_pickle=True).item()
     else:
         results = {}
 
@@ -164,18 +181,24 @@ if __name__ == '__main__':
         if story not in results:
             results[story] = {}
 
-        if not across_story:
-            train_story, test_story = story, story
-        else:
-            test_story = story
-            train_story = [st for st in stories if st is not test_story][0]
+        if story_train == 'within':
+            train_stories, test_stories = story, story
+        elif story_train == 'across':
+            test_stories = story
+            train_stories = [st for st in stories if st is not test_story]
+        elif story_train == 'all':
+            test_stories = story
+            train_stories = stories
+
+        # By default just grab all subjects
+        subject_list = check_keys(metadata[story]['data'])
 
         # Split models and load in data splits
         train_model_dict = split_models(metadata, stories=stories,
-                                        subjects=subjects, half=1,
+                                        subjects=None, half=1,
                                         delays=delays)
         test_model_dict = split_models(metadata, stories=stories,
-                                       subjects=subjects, half=2,
+                                       subjects=None, half=2,
                                        delays=delays)
 
         for roi in rois:
@@ -188,17 +211,18 @@ if __name__ == '__main__':
 
                 # Load in split cSRM data for train and test
                 train_dict = load_split_data(metadata, stories=stories,
-                                             subjects=subjects, hemisphere=hemis,
+                                             subjects=None, hemisphere=hemis,
                                              half=1, prefix=f'{roi}_' + prefix[1])
                 test_dict = load_split_data(metadata, stories=stories,
-                                            subjects=subjects, hemisphere=hemis,
+                                            subjects=None, hemisphere=hemis,
                                             half=2, prefix=f'{roi}_' + prefix[2])
 
                 for s in range(len(subject_list)):
 
                     test_subjects = [subject_list[s]]
                     test_subject = test_subjects[0]
- 
+
+                    # Use leave-one-subject-out cross-validation (unless within-subject)
                     if prefix[0] == 'no SRM (within-subject)':
                         train_subjects = test_subjects
                     else:
@@ -213,17 +237,26 @@ if __name__ == '__main__':
                             results[story][roi][prefix[0]][test_subject][hemi] = {}
 
                             # Aggregate data and model across subjects
-                            train_data, train_model = aggregate_subjects(train_dict[train_story],
-                                                                         train_model_dict[train_story],
+                            train_data, train_model = aggregate_subjects(train_dict,
+                                                                         train_model_dict,
+                                                                         train_stories,
                                                                          train_subjects,
                                                                          hemi=hemi,
                                                                          aggregation=aggregation)
-                            test_data, test_model = aggregate_subjects(test_dict[test_story],
-                                                                       test_model_dict[test_story],
+                            test_data, test_model = aggregate_subjects(test_dict,
+                                                                       test_model_dict,
+                                                                       test_stories,
                                                                        test_subjects,
                                                                        hemi=hemi,
                                                                        aggregation=aggregation)
 
+                            # Get the regional average as well
+                            if prefix[0] == 'no SRM (average)':
+                                train_data = np.expand_dims(np.mean(train_data,
+                                                                    axis=1), 1)
+                                test_data = np.expand_dims(np.mean(test_data,
+                                                                    axis=1), 1)
+                                
                             # Declare ridge regression model
                             ridge = Ridge(alpha=alpha, fit_intercept=True, normalize=False,
                                           copy_X=True, tol=0.001, solver='auto')
@@ -240,23 +273,34 @@ if __name__ == '__main__':
                             # Compute correlation between predicted and test response
                             performance = array_correlation(predicted_data,
                                                             test_data)
-
-                            # Collapse coefficients across delays for decoding
-                            collapse_coef = np.mean(np.split(ridge.coef_, len(delays),
-                                                            axis=1), axis=0)
-                            collapse_test_model = np.mean(np.split(test_model, len(delays),
-                                                            axis=1), axis=0)
-
-                            # Decoding via dot product between test samples and coefficients
-                            predicted_model = test_data.dot(collapse_coef)
-
-                            accuracy = rank_accuracy(predicted_model, collapse_test_model)
-
+                            
                             results[story][roi][prefix[0]][test_subject][hemi]['encoding'] = performance
-                            results[story][roi][prefix[0]][test_subject][hemi]['decoding'] = accuracy
 
                             print(f"Finished forwarding encoding analysis for "
-                                  f"{story}, {roi}, {prefix}, {test_subjects}")
-                            print(np.mean(performance), accuracy)
+                                  f"{story}, {roi}, {prefix[0]}, {test_subjects}, "
+                                  f"performance = {np.mean(performance):.4f}")
+
+                            # Decoding via dot product between test samples and coefficients
+                            if prefix[0] != 'no SRM (average)':
+                                
+                                # Collapse coefficients across delays for decoding
+                                collapse_coef = np.mean(np.split(ridge.coef_, len(delays),
+                                                                 axis=1), axis=0)
+                                collapse_test_model = np.mean(np.split(test_model, len(delays),
+                                                                axis=1), axis=0)
+                                
+                                predicted_model = Ridge(alpha=alpha,
+                                                        fit_intercept=False).fit(collapse_coef,
+                                                                                 test_data.T).coef_
+                                raise
+
+                                accuracy = rank_accuracy(predicted_model, collapse_test_model)
+
+                                results[story][roi][prefix[0]][test_subject][hemi]['decoding'] = accuracy
+                                
+                                print(f"Finished decoding analysis for "
+                                      f"{story}, {roi}, {prefix[0]}, {test_subjects}, "
+                                      f"accuracy = {accuracy:.4f} ({rank})")
+                                accuracies.append(accuracy)
 
     np.save(results_fn, results)
