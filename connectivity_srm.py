@@ -216,8 +216,8 @@ def connectivity_srm(train_data, test_data, targets, target_fc=target_isfc,
                                       half=train_half,
                                       stories=stories,
                                       subjects=subjects,
-                                      hemisphere=hemisphere,
-                                      save_prefix=save_prefix + '-train')
+                                      hemisphere=hemisphere)
+    #                                  save_prefix=save_prefix + '-train')
     
     print("Finished applying cSRM transformations to training data")
 
@@ -226,8 +226,8 @@ def connectivity_srm(train_data, test_data, targets, target_fc=target_isfc,
                                      half=test_half,
                                      stories=stories,
                                      subjects=subjects,
-                                     hemisphere=hemisphere,
-                                     save_prefix=save_prefix + '-test')
+                                     hemisphere=hemisphere)
+    #                                save_prefix=save_prefix + '-test')
     
     print("Finished applying cSRM transformations to test data")
 
@@ -294,8 +294,11 @@ if __name__ == '__main__':
         metadata = json.load(f)
 
     # Subjects and stories
+    #stories = ['pieman', 'prettymouth', 'milkyway',
+    #            'slumlordreach', 'notthefall', '21styear']
     stories = ['pieman', 'prettymouth', 'milkyway',
-               'slumlordreach', 'notthefall', '21styear']
+               'slumlordreach', 'notthefall', '21styear',
+               'pieman (PNI)', 'bronx (PNI)', 'black', 'forgot']
 
     # Load the surface parcellation
     atlas = {'lh': read_gifti('data/MMP_fsaverage6.lh.gii')[0],
@@ -325,19 +328,19 @@ if __name__ == '__main__':
         targets = parcel_srm(target_data, atlas, k=3,
                              parcel_labels=parcel_labels,
                              stories=stories, subjects=subjects)
-        
+
     # Compute targets based on vertex-wise ISCs
     elif target_type == 'vertex-isc':
         threshold = .2
         targets = vertex_isc(target_data, threshold=threshold, stories=stories,
                              subjects=subjects, half=half, save_iscs=True)
         target_type = target_type + '_thresh-{threshold}'
-    
+
     # Save targets for re-use (may also be costly to re-compute)
     #np.save(f'data/targets_half-{train_half}_{target_type}.npy', targets)
 
     # Load in ROI masks for both hemispheres
-    roi = 'AAC'
+    roi = 'PMC'
     mask_lh = np.load(f'data/{roi}_mask_lh.npy',
                       allow_pickle=True).astype(bool)
     mask_rh = np.load(f'data/{roi}_mask_rh.npy',
@@ -356,49 +359,47 @@ if __name__ == '__main__':
 
     # Apply connectivity SRM stacked across all stories
     n_iter = 10
-    for k in [10, 50, 100, 300]:
+    for k in [50]:
         train_transformed, test_transformed, srms = connectivity_srm(
                                         train_data, test_data, targets,
                                         target_fc=target_isfc,
                                         train_half=1, test_half=2,
                                         stories=stories, subjects=None,
-                                        save_prefix=f'{roi}_{target_type}_k-{k}_cSRMex',
+                                        save_prefix=f'{roi}_{target_type}_k-{k}_cSRM',
                                         k=k, n_iter=n_iter)
         print(f"Finished cSRM (k = {k}) in {roi} for all stories")
-        
+
     # Project new subjects from left-out stories into shared space
     stories_leftout = ['pieman (PNI)', 'bronx (PNI)']
-    
+
     # Load left-out data
     train_leftout = load_split_data(metadata, stories=stories_leftout,
                                     subjects=None,
                                     mask=mask, half=train_half)
-    
+
     test_leftout = load_split_data(metadata, stories=stories_leftout,
                                    subjects=None,
                                    mask=mask, half=test_half)
-    
+
     # Load in first-half training surface data
     target_data = load_split_data(metadata, stories=stories_leftout,
                                   subjects=None,
                                   half=train_half)
-    
+
     # Compute targets on left-out stories
     targets = parcel_means(target_data, atlas, parcel_labels=parcel_labels,
                            stories=stories_leftout, subjects=None)
-    
+
     # Project left-out stories / subjects into shared space
     data_projected = srm_project(train_leftout, test_leftout, targets,
                                  srms, target_fc=target_isfc,
                                  train_half=1, test_half=2,
                                  stories=stories_leftout,
                                  save_prefix=f'{roi}_{target_type}_k-{k}_cSRMex')
-    
-    
-        
+
     # Apply connectivity SRM per story
     n_iter = 10
-    for roi in ['EAC', 'TPOJ', 'PMC']:
+    for roi in ['AAC']:
 
         # Load in ROI masks for both hemispheres
         mask_lh = np.load(f'data/{roi}_mask_lh.npy',
@@ -417,11 +418,11 @@ if __name__ == '__main__':
                                     subjects=None,
                                     mask=mask, half=2)
 
-        for k in [10, 50, 100, 300]:
+        for k in [10, 50]:
             for story in ['pieman', 'prettymouth', 'milkyway',
                           'slumlordreach', 'notthefall', '21styear',
                           'pieman (PNI)', 'bronx (PNI)', 'black', 'forgot']:
-                train_transformed, test_transformed = connectivity_srm(
+                train_transformed, test_transformed, srms = connectivity_srm(
                                                         train_data, test_data, targets,
                                                         target_fc=target_isfc,
                                                         train_half=1, test_half=2,
@@ -443,3 +444,40 @@ if __name__ == '__main__':
                                                     save_prefix=f'{roi}_k-{k}_tSRM-{story}',
                                                     k=k, n_iter=n_iter)
             print(f"Finished tSRM (k = {k}) in {roi} for {story}")
+
+
+    # Also get test-half ISFCs for Figure 10
+    test_half = 2
+    
+    test_data = load_split_data(metadata, stories=stories,
+                                subjects=None,
+                                half=test_half)
+
+    targets = parcel_means(test_data, atlas, parcel_labels=parcel_labels,
+                           stories=stories, subjects=None)
+
+    # Load in ROI masks for both hemispheres
+    for roi in ['EAC', 'AAC', 'TPOJ', 'PMC']:
+
+        #roi = 'EAC'
+        mask_lh = np.load(f'data/{roi}_mask_lh.npy',
+                          allow_pickle=True).astype(bool)
+        mask_rh = np.load(f'data/{roi}_mask_rh.npy',
+                          allow_pickle=True).astype(bool)
+        mask = {'lh': mask_lh, 'rh': mask_rh}
+
+        # Re-load in first-half test surface data with ROI mask
+        test_data = load_split_data(metadata, stories=stories,
+                                    subjects=None,
+                                    mask=mask, half=test_half)
+
+        # Compute ISFCs on test data for this ROI
+        target_isfcs = target_isfc(test_data, targets, stories=stories,
+                                   subjects=None)
+
+        np.save(f'data/half-{test_half}_{roi}_parcel-mean_isfcs.npy',
+                target_isfcs)
+        print(f"Finished computing test-half ISFCs for {roi}")
+
+    test_isfcs = np.load('data/half-2_EAC_parcel-mean_isfcs.npy',
+                         allow_pickle=True).item()

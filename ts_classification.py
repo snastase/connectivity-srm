@@ -199,7 +199,7 @@ if __name__ == '__main__':
 
 
     # Compute temporal and spatial intersubject coorrelations
-    isc_type = 'spatial'
+    isc_type = 'temporal'
     
     prefixes = [('no SRM', 'noSRM'),
                 ('no SRM (average)', 'noSRM'),
