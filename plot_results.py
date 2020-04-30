@@ -30,7 +30,7 @@ stories = ['pieman', 'prettymouth', 'milkyway',
            'slumlordreach', 'notthefall', '21styear',
            'pieman (PNI)', 'bronx (PNI)', 'black', 'forgot']
 for story in stories:
-    for roi in ['AAC']:
+    for roi in ['TPOJ']:
         for prefix in ['no SRM',
                        'tSRM (k = 100)',
                        'cSRMw (k = 100)', 
@@ -65,16 +65,16 @@ for story in stories:
 
 results_df = pd.DataFrame(melted)
 
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(18, 6))
+#fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(18, 6))
 
 sns.set(style='white', font_scale=1.25)
 g = sns.catplot(x='story', y='accuracy', hue='space', aspect=2.4, zorder=0,
-                kind='bar', data=results_df[results_df['space'] != 'no SRM (regional-average)'], ax=ax1,
+                kind='bar', data=results_df[results_df['space'] != 'no SRM (regional-average)'], #ax=ax1,
                 palette=([colors.to_rgba('.7'), 
                           colors.to_rgba('.5'),
                           'lightsalmon', 'crimson', 'mediumpurple']))
 g.set_xticklabels(rotation=90, ha='center', y=0.02)
-ax1 = g.facet_axis(0, 0)
+#ax1 = g.facet_axis(0, 0)
 for i, story in enumerate(stories):
     ax.hlines(chance[story], i -.4, i + .4, colors='w', linestyle='--')
     
@@ -199,6 +199,21 @@ for col, roi in enumerate(rois):
 plt.savefig('figures/new_temporal_isc.png',
             bbox_inches='tight', dpi=300, transparent=True)
 
+# Try splitting by hemisphere
+sns.set(style='white', font_scale=1.3)
+results_f_df['hemisphere'] = results_f_df['hemisphere'].map({'lh': 'left', 'rh': 'right'})
+col_order = np.unique(results_f_df['space'])[[1, 4, 2, 5, 0, 3, -2]]
+g = sns.catplot(x='ROI', y='temporal ISC', hue='hemisphere',
+                kind='violin', split=True, inner=None, aspect=1.4,
+                col='space', col_wrap=2, col_order=col_order,
+                data=results_f_df[
+                    results_f_df['space'] != 'no SRM (average)'][
+                    results_f_df['story'] == 'black'])
+for ax in g.axes.flat:
+    _ = plt.setp(ax.get_xticklabels(), visible=True)
+plt.savefig('figures/temporal_isc_hemispheres.png',
+            bbox_inches='tight', dpi=300, transparent=True)
+    
 
 # Plot proportion of temporal ISCs exceeding threshold
 results = np.load('data/temporal_isc_pca_results.npy',
@@ -213,14 +228,6 @@ melted = {'story': [], 'ROI': [], 'space': [],
             'hemisphere': [], y_label: []}
 for story in ['black', 'forgot']:
     for roi in results[story].keys():
-        #for prefix in ['no SRM',
-        #               'no SRM (average)',
-        #               'cPCA (k = 100)',
-        #               'cSRM (k = 100)', 
-        #               'cPCA (k = 50)',
-        #               'cSRM (k = 50)',
-        #               'cPCA (k = 10)',
-        #               'cSRM (k = 10)']:
         for prefix in ['no SRM',
                        'no SRM (average)',
                        'cPCA (k = 100)',
@@ -356,37 +363,65 @@ stories = ['pieman', 'prettymouth', 'milkyway',
            'slumlordreach', 'notthefall', '21styear',
            'pieman (PNI)', 'bronx (PNI)', 'black', 'forgot']
 
+hemi = 'bh'
+roi = 'AAC'
+k = 100
+
 # Load in transformation matrices for across-/within-story cSRMs
-w_across = np.load('data/half-1_AAC_parcel-mean_k-100_cSRM_w.npy',
+w_across = np.load(f'data/half-1_{roi}_parcel-mean_k-{k}_cSRM_w.npy',
                    allow_pickle=True).item()
 w_within = {}
 for story in metadata:
-    w_within[story] = np.load(f'data/half-1_AAC_parcel-mean_k-100_cSRM-{story}_w.npy',
+    w_within[story] = np.load(f'data/half-1_{roi}_parcel-mean_k-{k}_cSRM-{story}_w.npy',
                               allow_pickle=True).item()
 
 # Load in ISFCs from second (test) half
-isfcs = np.load('data/half-2_AAC_parcel-mean_isfcs.npy',
+isfcs = np.load(f'data/half-2_{roi}_parcel-mean_isfcs.npy',
                 allow_pickle=True).item()
 
-# Transform and get mean ISFCs across subjects
-across, within = [], []
-for story in isfcs.keys():
-    story_across, story_within = [], []
-    for subject in isfcs[story].keys():
-        try:
-            isfc = isfcs[story][subject][hemi].T
-            story_across.append(isfc.dot(w_across[subject][hemi]))
-            story_within.append(isfc.dot(w_within[story][subject][hemi]))
-            print(f"Finished ISFC projections for {subject} ({story})")
-        except KeyError:
-            print(f"No transformation for {subject} ({story}) -- skipping!!!")
-    across.append(np.ravel(np.mean(story_across, axis=0)))
-    within.append(np.ravel(np.mean(story_within, axis=0)))
-    print(f"Finished transforming ISFCs for {story}")
+# Transform and get mean ISFCs across subjects (single hemisphere)
+if hemi in ['lh', 'rh']:
+    across, within = [], []
+    for story in isfcs.keys():
+        story_across, story_within = [], []
+        for subject in isfcs[story].keys():
+            try:
+                isfc = isfcs[story][subject][hemi].T
+                story_across.append(isfc.dot(w_across[subject][hemi]))
+                story_within.append(isfc.dot(w_within[story][subject][hemi]))
+                print(f"Finished ISFC projections for {subject} ({story})")
+            except KeyError:
+                print(f"No transformation for {subject} ({story}) -- skipping!!!")
+        across.append(np.ravel(np.mean(story_across, axis=0)))
+        within.append(np.ravel(np.mean(story_within, axis=0)))
+        print(f"Finished transforming ISFCs for {story}")
 
-r_across = np.corrcoef(np.vstack(across))
-r_within = np.corrcoef(np.vstack(within))
+    r_across = np.corrcoef(np.vstack(across))
+    r_within = np.corrcoef(np.vstack(within))
+    
+elif hemi == 'bh':
+    across, within = {'lh': [], 'rh': []}, {'lh': [], 'rh': []}
+    for h in ['lh', 'rh']:
+        for story in isfcs.keys():
+            story_across, story_within = [], []
+            for subject in isfcs[story].keys():    
+                try:
+                    isfc = isfcs[story][subject][h].T
+                    story_across.append(isfc.dot(w_across[subject][h]))
+                    story_within.append(isfc.dot(w_within[story][subject][h]))
+                    print(f"Finished ISFC projections for {subject} ({story})")
+                except KeyError:
+                    print(f"No transformation for {subject} ({story}) -- skipping!!!")
+            across[h].append(np.ravel(np.mean(story_across, axis=0)))
+            within[h].append(np.ravel(np.mean(story_within, axis=0)))
+            print(f"Finished transforming ISFCs for {story} ({h})")
+    
+    r_across = np.mean([np.corrcoef(np.vstack(across['lh'])),
+                        np.corrcoef(np.vstack(across['rh']))], axis=0)
+    r_within = np.mean([np.corrcoef(np.vstack(within['lh'])),
+                        np.corrcoef(np.vstack(within['rh']))], axis=0)
 
+sns.set(style='white', font_scale=1)
 fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(10, 16))
 sns.heatmap(r_across, vmin=0, vmax=1, cmap='magma', ax=ax1,
             square=True, xticklabels=stories, yticklabels=stories,
@@ -400,7 +435,7 @@ sns.heatmap(r_within, vmin=0, vmax=1, cmap='magma', ax=ax2,
 ax2.set_title("within-story cSRM")
 ax2.collections[0].colorbar.ax.tick_params(length=0)
 ax2.collections[0].colorbar.set_label('correlation', labelpad=12, rotation=270)
-sns.heatmap(r_across - r_within, cmap='coolwarm', vmin=-.2, vmax=.2, ax=ax3,
+sns.heatmap(r_across - r_within, cmap='coolwarm', vmin=-.23, vmax=.23, ax=ax3,
             square=True, xticklabels=stories, yticklabels=False,
             cbar_kws={'fraction': 0.046, 'pad': 0.04})
 ax3.set_title("difference (across – within)")
@@ -408,10 +443,24 @@ ax3.collections[0].colorbar.ax.tick_params(length=0)
 ax3.collections[0].colorbar.set_ticks([-.2, -.1, 0, .1, .2])
 ax3.collections[0].colorbar.set_label('correlation', labelpad=12, rotation=270)
 plt.tight_layout()
-plt.savefig('figures/within-vs-across_corrmats.png',
+plt.savefig(f'figures/within-vs-across_{roi}_k-{k}_hemi-{hemi}_cb_corrmats.png',
             bbox_inches='tight', dpi=300, transparent=True)
+from scipy.spatial.distance import squareform
+print("Mean across-story ISFC correlation: "
+      f"{np.round(np.mean(squareform(r_across, checks=False)), 3)}")
+print("Mean with-story ISFC correlation: "
+      f"{np.round(np.mean(squareform(r_within, checks=False)), 3)}")
+print("Mean difference in ISFC correlation: "
+      f"{np.round(np.mean(squareform(r_across - r_within, checks=False)), 3)}")
+print("Maximum difference in ISFC correlation: "
+      f"{np.round(np.amax(squareform(r_across - r_within, checks=False)), 3)}")
 
-r_both = np.corrcoef(np.vstack(across), np.vstack(within))
+
+# Compare ISFCs directly between across- / within- cSRMs
+r_both = []
+for h in ['lh', 'rh']:
+    r_both.append(np.corrcoef(np.vstack(across[h]), np.vstack(within[h])))
+r_both = np.mean(r_both, axis=0)
 n_stories = len(stories)
 r_both_off = r_both[:n_stories, n_stories:]
 superordinate = [''] * 20
@@ -430,7 +479,7 @@ sns.heatmap(r_both_off, cmap='magma', vmin=0, vmax=1, ax=ax2,
 ax2.collections[0].colorbar.ax.tick_params(length=0)
 ax2.collections[0].colorbar.set_label('correlation', labelpad=12, rotation=270)
 plt.tight_layout()
-plt.savefig('figures/within-across_corrmat.png',
+plt.savefig(f'figures/within-across_{roi}_k-{k}_hemi-{hemi}_corrmat.png',
             bbox_inches='tight', dpi=300, transparent=True)
 np.mean(np.diag(r_both_off))
 np.std(np.diag(r_both_off))
@@ -489,6 +538,60 @@ g = sns.catplot(x='story', y='spatiotemporal ISC', hue='cSRM space',
                 aspect=1.2, ci=95)
 g.set_xticklabels(rotation=90, ha='center', y=0.02)
 plt.savefig('figures/within-vs-across_subject_ts_iscs.png',
+            bbox_inches='tight', dpi=300, transparent=True)
+
+
+# Pair correlation with number of TRs and subjects
+from itertools import combinations
+from scipy.stats import pearsonr
+tr_diffs = []
+for p, pair in enumerate(combinations(stories, 2)):
+    tr_diff = metadata[pair[0]]['n_TRs'] - metadata[pair[1]]['n_TRs']
+    tr_diffs.append(tr_diff)
+    print(f"{pair[0]}: {metadata[pair[0]]['n_TRs']} TRs; "
+          f"{pair[1]}: {metadata[pair[1]]['n_TRs']} TRs; "
+          f"difference: {tr_diff}; "
+          f"correlation: {squareform(r_across, checks=False)[p]}")
+tr_r = pearsonr(np.abs(tr_diffs), squareform(r_across, checks=False))
+
+n_diffs = []
+for p, pair in enumerate(combinations(stories, 2)):
+    n_diff = len(metadata[pair[0]]['data']) - len(metadata[pair[1]]['data'])
+    n_diffs.append(n_diff)
+    print(f"{pair[0]}: {len(metadata[pair[0]]['data'])} subjects; "
+          f"{pair[1]}: {len(metadata[pair[1]]['data'])} subjects; "
+          f"difference: {n_diff}; "
+          f"correlation: {squareform(r_across, checks=False)[p]}")
+n_r = pearsonr(np.abs(n_diffs), squareform(r_across, checks=False))
+
+
+# Get off-diagonal values from across-story ISFCs
+np.fill_diagonal(r_across, np.nan)
+r_vals = np.nanmean(r_across, axis=1)
+
+# Get diagonal values from across- vs within- ISFC correlations
+r_vals = np.diagonal(r_both_off)
+
+# Swap in one of these matrices here
+n_trs = [metadata[s]['n_TRs'] for s in stories]
+r_avg_tr = pearsonr(r_vals, n_trs)
+
+n_subjects = [len(metadata[s]['data']) for s in stories]
+r_avg_subjs = pearsonr(r_vals, n_subjects)
+
+fig, axs = plt.subplots(1, 2, sharey=True, sharex=False, figsize=(10, 4))
+sns.regplot(x=n_trs, y=r_vals, ci=None, ax=axs[0], truncate=True)
+sns.regplot(x=n_subjects, y=r_vals, ci=None, ax=axs[1], truncate=True)
+axs[0].set_xlim(0, 2500)
+axs[1].set_xlim(10, 50)
+axs[0].set_ylabel('across- vs. within-story correlation')
+axs[0].set_xlabel('number of TRs')
+axs[1].set_xlabel('number of subjects')
+axs[0].annotate("$\it{r}$ = " + f"{np.round(r_avg_tr[0], 3)}",
+                xy=(.73, .05), xycoords='axes fraction')
+axs[1].annotate("$\it{r}$ = " + f"{np.round(r_avg_subjs[0], 3):.3f}",
+                xy=(.73, .05), xycoords='axes fraction')
+plt.savefig('figures/TR_subj_ISFC_offdiag.png',
             bbox_inches='tight', dpi=300, transparent=True)
 
 
