@@ -1,4 +1,7 @@
 # Connectivity-based shared response model
+
+[![OpenNeuro](https://img.shields.io/badge/Data-OpenNeuro-teal)](https://openneuro.org/datasets/ds002345)
+
 This repo accompanies a manuscript by Samuel A. Nastase, Yun-Fei Liu, Hanna Hillman, Kenneth A. Norman, and Uri Hasson published in *NeuroImage* ([Nastase et al., 2020](https://doi.org/10.1016/j.neuroimage.2020.116865)). Following the logic of connectivity hyperalignment ([Guntupalli et al., 2018](https://doi.org/10.1371/journal.pcbi.1006120)), we leverage intersubject functional correlations (ISFCs; [Simony et al., 2016](https://doi.org/10.1038/ncomms12141)) to estimate a single connectivity-based shared response model (SRM; [Chen et al., 2015](http://papers.nips.cc/paper/5855-a-reduced-dimension-fmri-shared-response-model)) across disjoint datasets. We evaluate this model on 10 publicly-available story-listening fMRI datasets from the [Narratives](https://snastase.github.io/datasets/ds002345) collection ([Nastase et al., 2019](https://openneuro.org/datasets/ds002345)).
 
 ![Alt text](./cSRM_schematic.png?raw=true&s=100 "cSRM schematic")
